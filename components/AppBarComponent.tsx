@@ -3,6 +3,8 @@ import React from "react";
 import styled from "styled-components";
 import {Box, Sheet, Stack, Typography} from "@mui/joy";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
+import {Autocomplete} from "@mui/joy";
+import LanguageIcon from '@mui/icons-material/Language';
 
 /**
  * Maximale Breite für das Suchfeld in der App Bar.
@@ -28,17 +30,22 @@ export const AppBarComponent: React.FC = () => {
                     {process.env.NEXT_PUBLIC_APPLICATION_NAME!}
                 </Typography>
             </Stack>
-            <SearchInputContainer>
-                <div></div>
-                <div></div>
-            </SearchInputContainer>
+            <NavigationBarOptionsContainer>
+                <Autocomplete
+                    startDecorator={<LanguageIcon />}
+                    options={["Deutsch", "English", "Français"]}
+                    sx={{
+                        maxWidth: "200px"
+                    }}
+                />
+            </NavigationBarOptionsContainer>
         </NavigationBarContainer>
     );
 };
 
 const NavigationBarContainer = styled(Sheet)`
     display: grid;
-    grid-template-columns: max-content 1fr max-content;
+    grid-template-columns: 1fr max-content;
     grid-gap: var(--gap-2);
     align-content: center;
     align-items: center;
@@ -47,11 +54,7 @@ const NavigationBarContainer = styled(Sheet)`
     border-bottom: 2px solid var(--color-divider);
 `;
 
-const SearchInputContainer = styled(Box)`
+const NavigationBarOptionsContainer = styled(Box)`
     display: flex;
-    grid-template-columns: auto 1fr;
     gap: var(--gap-1);
-    width: 100%;
-    max-width: ${MAX_WIDTH_OF_SEARCH_INPUT_FIELD};
-    justify-self: center;
 `;

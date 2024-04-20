@@ -1,11 +1,9 @@
 "use client";
 import React, {ReactNode, useEffect, useState} from "react";
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
-import StyleOutlinedIcon from "@mui/icons-material/StyleOutlined";
-import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
-import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import PlayCircleFilledWhiteOutlinedIcon from '@mui/icons-material/PlayCircleFilledWhiteOutlined';
+import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
+import UploadFileOutlinedIcon from '@mui/icons-material/UploadFileOutlined';
 import KeyboardDoubleArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardDoubleArrowLeftOutlined";
 import KeyboardDoubleArrowRightOutlinedIcon from "@mui/icons-material/KeyboardDoubleArrowRightOutlined";
 import styled from "styled-components";
@@ -56,37 +54,25 @@ export const SidebarComponent: React.FC = () => {
         },
         {
             label: "Simulation",
-            icon: <StyleOutlinedIcon />,
-            isActive: pathname.includes("/buecher"),
-            onClick: () => router.push("/buecher"),
+            icon: <PlayCircleFilledWhiteOutlinedIcon />,
+            isActive: pathname.includes("/simulation"),
+            onClick: () => router.push("/simulation"),
         },
         {
             label: "Ergebnisse",
-            icon: <AddOutlinedIcon />,
-            isActive: pathname.includes("/anlegen"),
-            onClick: () => router.push("/anlegen"),
+            icon: <EmojiEventsOutlinedIcon />,
+            isActive: pathname.includes("/results"),
+            onClick: () => router.push("/results"),
         },
         {
             label: "Simulieren (XML-Datei)",
-            icon: <BarChartOutlinedIcon />,
-            isActive: pathname.includes("/analysen"),
-            onClick: () => router.push("/analysen"),
+            icon: <UploadFileOutlinedIcon />,
+            isActive: pathname.includes("/upload-from-xml-file"),
+            onClick: () => router.push("/upload-from-xml-file"),
         },
     ];
 
     const lowerButtons: NavigationButton[] = [
-        {
-            label: "An- & Abmelden",
-            icon: <LoginOutlinedIcon />,
-            isActive: pathname.includes("/login"),
-            onClick: () => router.push("/login"),
-        },
-        {
-            label: "Einstellungen",
-            icon: <SettingsOutlinedIcon />,
-            isActive: pathname.includes("/einstellungen"),
-            onClick: () => router.push("/einstellungen"),
-        },
         {
             label: "Seitenleiste zuklappen",
             icon: isOpen ? (
@@ -123,7 +109,7 @@ const ButtonListComponent: React.FC<PropsButtonList> = (
     const { buttons, showLabel } = props;
 
     return (
-        <List>
+        <List component={"aside"}>
             {buttons.map((button, index) => (
                 <ListItem
                     key={`${button.label}${index}`}
@@ -134,7 +120,17 @@ const ButtonListComponent: React.FC<PropsButtonList> = (
                         selected={button.isActive}
                         color={button.isActive ? "primary" : "neutral"}
                     >
-                        <ListItemDecorator>{button.icon}</ListItemDecorator>
+                        <ListItemDecorator
+                            sx={{
+                                ...(!showLabel ? {
+                                    minInlineSize: "unset",
+                                    "-webkit-margin-end": "unset",
+                                    marginInlineEnd: "unset",
+                                }: {}),
+                            }}
+                        >
+                            {button.icon}
+                        </ListItemDecorator>
                         {showLabel ? button.label : null}
                     </StyledListItemButton>
                 </ListItem>
@@ -148,10 +144,10 @@ const SidebarContainer = styled(Box)`
     gap: var(--gap-1);
     grid-template-rows: 1fr max-content;
     height: 100%;
-    padding: 0 var(--gap-1) var(--gap-1) var(--gap-1);
+    padding: var(--gap-1);
     border-right: 2px solid var(--color-divider);
 `;
 const StyledListItemButton = styled(ListItemButton)`
-    border-radius: var(--border-medium);
+    border-radius: var(--border-small);
     padding: var(--gap-1) var(--gap-1);
 `;
