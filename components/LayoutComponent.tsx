@@ -22,7 +22,7 @@ export const LayoutComponent: React.FC<Props> = (props: PropsWithChildren) => {
 
     return (
         <ApplicationMainContainer>
-            <StickyContainer zindex={10000}>
+            <StickyContainer zindex={1000}>
                 <AppBarComponent />
             </StickyContainer>
             <SidebarAndMainContentContainer>
