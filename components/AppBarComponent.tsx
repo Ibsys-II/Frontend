@@ -33,6 +33,7 @@ export const AppBarComponent: React.FC = () => {
             <NavigationBarOptionsContainer>
                 <Autocomplete
                     startDecorator={<LanguageIcon />}
+                    defaultValue={"Deutsch"}
                     options={["Deutsch", "English", "Français"]}
                     sx={{
                         maxWidth: "200px"
