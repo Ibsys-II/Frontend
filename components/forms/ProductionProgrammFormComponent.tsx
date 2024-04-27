@@ -8,24 +8,30 @@ import useApplicationContext from "@/hooks/useApplicationContext";
 import useSubmitForm from "@/hooks/useSubmitForm";
 import CircularProgress from "@mui/joy/CircularProgress";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import PropsSimulationForm from "@/components/forms/formProps";
 
 type ForecastDtoUpdateModel = PropertiesToString<ForecastDto>;
 
-const INITIAL_FORECAST_DTO_STATE: ForecastDtoUpdateModel = {
-    p1: "",
-    p2: "",
-    p3: "",
-    period: "",
-}
-type Props = {
-    onSubmit: () => void;
-};
+type Props = PropsSimulationForm;
 
 export const ProductionProgrammFormComponent: React.FC<Props> = (props) => {
     const { onSubmit } = props;
     const appContext = useApplicationContext();
+    const INITIAL_FORECAST_DTO_STATE: ForecastDtoUpdateModel = {
+        p1: "",
+        p2: "",
+        p3: "",
+        period: appContext.period as unknown as string,
+    }
     const [forecastDto, setForecastDto] = useState<ForecastDtoUpdateModel>(INITIAL_FORECAST_DTO_STATE);
     const { setFetcher, isLoading, error } = useSubmitForm();
+
+    useEffect(() => {
+        setForecastDto(prevState => ({
+            ...prevState,
+            period: appContext.period as unknown as string,
+        }))
+    }, [appContext.period]);
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         event?.preventDefault();
@@ -72,6 +78,7 @@ export const ProductionProgrammFormComponent: React.FC<Props> = (props) => {
             onChange: handleChange,
             label: "Periode",
             placeholder: "Periode",
+            disabled: true,
             error: !forecastDto.period,
         },
     ];
@@ -108,7 +115,7 @@ export const ProductionProgrammFormComponent: React.FC<Props> = (props) => {
                     disabled={isFormValid || isLoading}
                     startDecorator={isLoading ? <CircularProgress size={"sm"} /> : null}
                 >
-                    {isLoading ? "Vertriebswunsch wird gespeichert..." : "Speichern"}
+                    {isLoading ? "Ihr Vertriebswunsch wird gespeichert..." : "Speichern"}
                 </Button>
             </Stack>
         </PageSectionComponent>

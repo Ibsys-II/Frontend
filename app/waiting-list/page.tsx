@@ -1,13 +1,14 @@
 import React from 'react';
 import {PageWrapperComponent} from "@/components/shared/PageWrapperComponent";
 
-const SimulationFromXmlFilePage: React.FC = () => {
+const WaitingListPage: React.FC = () => {
+
     return (
-        <PageWrapperComponent title={"Aus XML-Datei simulieren"}>
+        <PageWrapperComponent title={"Warteschlagen"}>
 
         </PageWrapperComponent>
     );
 };
 
-export default SimulationFromXmlFilePage;
+export default WaitingListPage;
 

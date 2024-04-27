@@ -3,7 +3,6 @@ import {PageWrapperComponent} from "@/components/shared/PageWrapperComponent";
 import {OverviewCardComponent} from "@/components/shared/OverviewCardComponent";
 import {SectionListComponent} from "@/components/shared/page-section/SectionListComponent";
 import {PageSectionComponent} from "@/components/shared/page-section/PageSectionComponent";
-import {Button} from "@mui/joy";
 
 const Home: React.FC = () => {
     return (

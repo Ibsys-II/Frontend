@@ -1,13 +1,13 @@
 import React from 'react';
 import {PageWrapperComponent} from "@/components/shared/PageWrapperComponent";
 
-const SimulationFromXmlFilePage: React.FC = () => {
+const CashRegisterPage: React.FC = () => {
+
     return (
-        <PageWrapperComponent title={"Aus XML-Datei simulieren"}>
+        <PageWrapperComponent title={"Kasse"}>
 
         </PageWrapperComponent>
     );
 };
 
-export default SimulationFromXmlFilePage;
-
+export default CashRegisterPage;

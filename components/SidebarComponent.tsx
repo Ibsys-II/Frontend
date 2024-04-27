@@ -7,13 +7,22 @@ import UploadFileOutlinedIcon from '@mui/icons-material/UploadFileOutlined';
 import KeyboardDoubleArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardDoubleArrowLeftOutlined";
 import KeyboardDoubleArrowRightOutlinedIcon from "@mui/icons-material/KeyboardDoubleArrowRightOutlined";
 import styled from "styled-components";
-import {Box} from "@mui/joy";
+import {Box, Typography} from "@mui/joy";
+import {Divider} from "@mui/joy";
 import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
 import ListItemDecorator from "@mui/joy/ListItemDecorator";
 import ListItemButton from "@mui/joy/ListItemButton";
 import {usePathname, useRouter} from "next/navigation";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
+import WidgetsOutlinedIcon from '@mui/icons-material/WidgetsOutlined';
+import WarehouseOutlinedIcon from '@mui/icons-material/WarehouseOutlined';
+import TimelineOutlinedIcon from '@mui/icons-material/TimelineOutlined';
+import HourglassEmptyOutlinedIcon from '@mui/icons-material/HourglassEmptyOutlined';
+import { v4 as uuid } from "uuid";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
+import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined';
 
 const INITIAL_SIDEBAR_STATE = true;
 
@@ -72,7 +81,51 @@ export const SidebarComponent: React.FC = () => {
         },
     ];
 
+    const middleButtons: NavigationButton[] = [
+        {
+            label: "Waren",
+            icon: <Inventory2OutlinedIcon />,
+            isActive: pathname.includes("/goods"),
+            onClick: () => router.push("/goods"),
+        },
+        {
+            label: "Bauteile",
+            icon: <WidgetsOutlinedIcon />,
+            isActive: pathname.includes("/articles"),
+            onClick: () => router.push("/articles"),
+        },
+        {
+            label: "Lagerbestand",
+            icon: <WarehouseOutlinedIcon />,
+            isActive: pathname.includes("/warehouse"),
+            onClick: () => router.push("/warehouse"),
+        },
+        {
+            label: "Lagerbewegungen",
+            icon: <TimelineOutlinedIcon />,
+            isActive: pathname.includes("/stock-movements"),
+            onClick: () => router.push("/stock-movements"),
+        },
+        {
+            label: "Warteschlagen",
+            icon: <HourglassEmptyOutlinedIcon />,
+            isActive: pathname.includes("/waiting-list"),
+            onClick: () => router.push("/waiting-list"),
+        },
+        {
+            label: "Kasse",
+            icon: <AccountBalanceOutlinedIcon />,
+            isActive: pathname.includes("/cash-register"),
+            onClick: () => router.push("/cash-register"),
+        },
+    ];
+
     const lowerButtons: NavigationButton[] = [
+        {
+            label: "Einstellungen",
+            icon: <SettingsOutlinedIcon />,
+            onClick: () => router.push("/settings"),
+        },
         {
             label: "Seitenleiste zuklappen",
             icon: isOpen ? (
@@ -85,18 +138,34 @@ export const SidebarComponent: React.FC = () => {
     ];
 
     return (
-        <SidebarContainer>
-            <ButtonListComponent
-                key={1}
-                buttons={upperButtons}
-                showLabel={isOpen}
-            />
-            <ButtonListComponent
-                key={2}
-                buttons={lowerButtons}
-                showLabel={isOpen}
-            />
-        </SidebarContainer>
+        <SidebarWrapper>
+            <SidebarContainer>
+                <UpperButtonListContainer>
+                    <ButtonListComponent
+                        key={uuid()}
+                        buttons={upperButtons}
+                        showLabel={isOpen}
+                    />
+                    <Divider orientation={"horizontal"} />
+                    {isOpen ?
+                        <Typography level={"body-sm"} fontWeight={600} sx={{ pl: "var(--gap-1)"}}>
+                            Verwaltung
+                        </Typography>: null
+                    }
+                    <ButtonListComponent
+                        key={uuid()}
+                        buttons={middleButtons}
+                        showLabel={isOpen}
+                    />
+                </UpperButtonListContainer>
+                <ButtonListComponent
+                    key={uuid()}
+                    buttons={lowerButtons}
+                    showLabel={isOpen}
+                />
+            </SidebarContainer>
+            <Divider orientation={"vertical"} />
+        </SidebarWrapper>
     );
 };
 type PropsButtonList = {
@@ -109,7 +178,7 @@ const ButtonListComponent: React.FC<PropsButtonList> = (
     const { buttons, showLabel } = props;
 
     return (
-        <List component={"aside"}>
+        <List component={"aside"} size={"sm"}>
             {buttons.map((button, index) => (
                 <ListItem
                     key={`${button.label}${index}`}
@@ -139,15 +208,25 @@ const ButtonListComponent: React.FC<PropsButtonList> = (
     );
 };
 
+const SidebarWrapper = styled(Box)`
+    display: grid;
+    grid-template-columns: 1fr max-content;
+    height: 100%;
+`;
 const SidebarContainer = styled(Box)`
     display: grid;
     gap: var(--gap-1);
     grid-template-rows: 1fr max-content;
-    height: 100%;
     padding: var(--gap-1);
-    border-right: 2px solid var(--color-divider);
+    overflow-y: auto;
+`;
+const UpperButtonListContainer = styled(Box)`
+    display: grid;
+    gap: var(--gap-1);
+    align-content: start;
+    align-items: start;
 `;
 const StyledListItemButton = styled(ListItemButton)`
     border-radius: var(--border-small);
-    padding: var(--gap-1) var(--gap-1);
+    padding: var(--gap-1);
 `;

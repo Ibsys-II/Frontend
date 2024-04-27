@@ -37,7 +37,7 @@ export const LayoutComponent: React.FC<Props> = (props: PropsWithChildren) => {
 
 const ApplicationMainContainer = styled(Box)`
     display: grid;
-    grid-template-rows: 7vh 93vh;
+    grid-template-rows: 6.5vh 93.5vh;
     //grid-gap: 4px;
     overflow-y: hidden;
 

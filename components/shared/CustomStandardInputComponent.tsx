@@ -1,12 +1,13 @@
 import React from "react";
-import { InputField } from "@/contexts/ApplicationContext";
+import {InputField} from "@/contexts/ApplicationContext";
 import FormLabel from "@mui/joy/FormLabel";
-import { FormHelperText, Input, Stack, Typography } from "@mui/joy";
-import DoNotDisturbAltIcon from "@mui/icons-material/DoNotDisturbAlt";
+import {FormHelperText, Input, Stack, Typography} from "@mui/joy";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import FormControl from "@mui/joy/FormControl";
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 type Props = InputField
+
 export const CustomStandardInputComponent: React.FC<Props> = (props) => {
     const { label, ...rest } = props;
     return (
@@ -34,7 +35,7 @@ export const CustomStandardInputComponent: React.FC<Props> = (props) => {
                             <Typography level="body-sm">
                                 Nicht änderbar
                             </Typography>
-                            <DoNotDisturbAltIcon color="error" />
+                            <LockOutlinedIcon color="error" />
                         </Stack>
                     ) : null
                 }
