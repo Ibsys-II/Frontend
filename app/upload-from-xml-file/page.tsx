@@ -167,6 +167,7 @@ const SimulationFromXmlFilePage: React.FC = () => {
     }
 
     const resolveOrdersFutureInwardStockMovement = (rawJson: any): OrderDto[] => {
+        if (!rawJson.results.futureinwardstockmovement.hasOwnProperty("order")) return [];
         return rawJson
             .results
             .futureinwardstockmovement

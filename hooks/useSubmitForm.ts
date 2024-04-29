@@ -11,10 +11,6 @@ const useSubmitForm = (): Output => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<Error | undefined>(undefined);
 
-    useEffect(() => {
-        console.log("error: ", error);
-        console.log("isLoading: ", isLoading);
-    }, [error, isLoading]);
     const setFetcher = async <T>(fetcher: FetcherType<T>) => {
         setIsLoading(true);
         setError(undefined);
