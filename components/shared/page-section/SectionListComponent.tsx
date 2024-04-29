@@ -16,5 +16,5 @@ export const SectionListComponent: React.FC<Props> = (props) => {
 
 const SectionListContainer = styled(Box)`
     display: grid;
-    grid-gap: var(--gap-6);
+    grid-gap: var(--gap-5);
 `;
