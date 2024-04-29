@@ -3,7 +3,29 @@ import {createForecastApi, Forecast, ForecastDto, getForecastByPeriodApi} from "
 import React, {createContext, PropsWithChildren, ReactNode, useState} from "react";
 import {InputTypeMap} from "@mui/joy";
 import {Article, getArticlesApi, getArticlesByNumberApi} from "@/api/article";
-import {createMultipleOrdersApi, createOrderApi, OrderDto} from "@/api/order";
+import {createMultipleOrdersApi, createOrderApi, getOrdersByPeriodApi, Order, OrderDto} from "@/api/order";
+import {
+    createMultipleWarehouseStocksApi,
+    createWarehouseStockApi,
+    getWarehouseStocksByPeriodApi,
+    WarehouseStock,
+    WarehouseStockDto
+} from "@/api/warehousestock";
+import {
+    createMultipleWorkplacesApi,
+    createWorkplaceApi,
+    getWorkplacesByPeriodApi,
+    Workplace,
+    WorkplaceDto
+} from "@/api/workplace";
+import {
+    createMultipleWaitingListsApi,
+    createWaitingListApi,
+    getWaitingListByPeriodApi,
+    WaitingList,
+    WaitingListDto
+} from "@/api/waitingList";
+import {Batch, BatchDto, createMultipleBatchesApi, getBatchesByItemNumberApi} from "@/api/batch";
 
 type ContextOutput = {
     // Period
@@ -17,8 +39,26 @@ type ContextOutput = {
     getArticlesWithoutGoodToProduce: (goodsToProduce: Set<string>) => Promise<Article[]>;
     getArticlesByNumber: (numbers: Set<string>) => Promise<Article[]>;
     // Orders
+    getOrdersByPeriod: (period: number) => Promise<Order[]>;
     createOrder: (orderDto: OrderDto) => Promise<void>;
     createMultipleOrders: (orderDtoList: OrderDto[]) => Promise<void>;
+    // WarehouseStocks
+    getWarehouseStocksByPeriod: (period: number) => Promise<WarehouseStock[]>;
+    createWarehouseStock: (warehouseStockDto: WarehouseStockDto) => Promise<void>;
+    createMultipleWarehouseStocks: (warehouseStockDtoList: WarehouseStockDto[]) => Promise<void>;
+    // Work places
+    getWorkplacesByPeriod: (period: number) => Promise<Workplace[]>;
+    createWorkplace: (workplaceDto: WorkplaceDto) => Promise<void>;
+    createMultipleWorkplaces: (workplaceDtoList: WorkplaceDto[]) => Promise<void>;
+    // Waiting lists
+    getWaitingListByPeriod: (period: number) => Promise<WaitingList[]>;
+    createWaitingList: (waitingListDto: WaitingListDto) => Promise<void>;
+    createMultipleWaitingLists: (waitingListDtoList: WaitingListDto[]) => Promise<void>;
+    // Batches
+    getBatchesByItemNumber: (orderId: number) => Promise<Batch[]>;
+    createBatch: (batchDto: BatchDto) => Promise<void>;
+    createMultipleBatches: (batchDtoList: BatchDto[]) => Promise<void>;
+
 }
 
 // @ts-ignore
@@ -35,6 +75,10 @@ export const ApplicationContextProvider: React.FC<Props> = (props: Props) => {
 
     const getForecastByPeriod = async (period: number): Promise<Forecast> => {
         return await getForecastByPeriodApi(period);
+    };
+
+    const getOrdersByPeriod = async (period: number): Promise<Order[]> => {
+        return await getOrdersByPeriodApi(period);
     };
 
     const createForecast = async (forecastDto: ForecastDto): Promise<void> => {
@@ -66,7 +110,55 @@ export const ApplicationContextProvider: React.FC<Props> = (props: Props) => {
 
     const createMultipleOrders = async (orderDtoList: OrderDto[]): Promise<void> => {
         return await createMultipleOrdersApi(orderDtoList);
-    }
+    };
+
+    const getWarehouseStocksByPeriod = async (period: number): Promise<WarehouseStock[]> => {
+        return await getWarehouseStocksByPeriodApi(period);
+    };
+
+    const createWarehouseStock = async (warehouseStockDto: WarehouseStockDto): Promise<void> => {
+        return await createWarehouseStockApi(warehouseStockDto);
+    };
+
+    const createMultipleWarehouseStocks = async (warehouseStockDtoList: WarehouseStockDto[]): Promise<void> => {
+        return await createMultipleWarehouseStocksApi(warehouseStockDtoList);
+    };
+
+    const getWorkplacesByPeriod = async (period: number): Promise<Workplace[]> => {
+        return await getWorkplacesByPeriodApi(period);
+    };
+
+    const createWorkplace = async (workplaceDto: WorkplaceDto): Promise<void> => {
+        return await createWorkplaceApi(workplaceDto);
+    };
+
+    const createMultipleWorkplaces = async (workplaceDtoList: WorkplaceDto[]): Promise<void> => {
+        return await createMultipleWorkplacesApi(workplaceDtoList);
+    };
+
+    const getWaitingListByPeriod = async (period: number): Promise<WaitingList[]> => {
+        return await getWaitingListByPeriodApi(period);
+    };
+
+    const createWaitingList = async (waitingListDto: WaitingListDto): Promise<void> => {
+        return await createWaitingListApi(waitingListDto);
+    };
+
+    const createMultipleWaitingLists = async (waitingListDtoList: WaitingListDto[]): Promise<void> => {
+        return await createMultipleWaitingListsApi(waitingListDtoList);
+    };
+
+    const getBatchesByOrderId = async (orderId: number): Promise<Batch[]> => {
+        return await getBatchesByItemNumberApi(orderId);
+    };
+
+    const createBatch = async (batchDto: BatchDto): Promise<void> => {
+        return await createBatch(batchDto);
+    };
+
+    const createMultipleBatches = async (batchDtoList: BatchDto[]): Promise<void> => {
+        return await createMultipleBatchesApi(batchDtoList);
+    };
 
     return (
         <ApplicationContext.Provider value={{
@@ -77,8 +169,21 @@ export const ApplicationContextProvider: React.FC<Props> = (props: Props) => {
             getArticles,
             getArticlesWithoutGoodToProduce,
             getArticlesByNumber,
+            getOrdersByPeriod,
             createOrder,
             createMultipleOrders,
+            getWarehouseStocksByPeriod,
+            createWarehouseStock,
+            createMultipleWarehouseStocks,
+            getWorkplacesByPeriod,
+            createWorkplace,
+            createMultipleWorkplaces,
+            getWaitingListByPeriod,
+            createWaitingList,
+            createMultipleWaitingLists,
+            getBatchesByItemNumber: getBatchesByOrderId,
+            createBatch,
+            createMultipleBatches,
         }}>
             {children}
         </ApplicationContext.Provider>
@@ -112,3 +217,22 @@ export type SimulationStep = {
     onNext?: () => void;
     onPrevious?: () => void;
 };
+
+// Helpers
+const resolveObjectWithSpecificProperties = <T extends Record<string, unknown>>(
+    object: T,
+    propertiesToReturn: (keyof T)[]
+): Partial<T> => {
+
+    return Object.fromEntries(
+        Object.entries(object)
+            .filter(([key, _value]) => propertiesToReturn.includes(key as string))
+    ) as Partial<T>
+}
+
+export const resolveObjectWithSpecificPropertiesFromList = <T extends Record<string, unknown>>(
+    objectList: T[],
+    propertiesToReturn: (keyof T)[]
+): Partial<T>[] => {
+    return objectList.map((object) => resolveObjectWithSpecificProperties(object, propertiesToReturn));
+}
