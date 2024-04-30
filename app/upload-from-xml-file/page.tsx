@@ -159,9 +159,6 @@ const SimulationFromXmlFilePage: React.FC = () => {
                 entireCosts: Number(order._attributes.entirecosts),
                 pieceCosts: Number(order._attributes.piececosts),
                 isInwardStockMovement: true,
-                isFutureInwardStockMovement: false,
-                isCompletedOrders: false,
-                isCycleTime: false,
                 idFromXml: Number(order._attributes.id),
                 articleId: Number(order._attributes.article),
             }))
@@ -179,10 +176,7 @@ const SimulationFromXmlFilePage: React.FC = () => {
                     .reduce((acc, curr) => ({...acc, ...curr}), {}),
                 period: Number(order._attributes.orderperiod),
                 mode: Number(order._attributes.mode),
-                isInwardStockMovement: false,
                 isFutureInwardStockMovement: true,
-                isCompletedOrders: false,
-                isCycleTime: false,
                 idFromXml: Number(order._attributes.id),
                 articleId: Number(order._attributes.article),
             }))
@@ -198,6 +192,7 @@ const SimulationFromXmlFilePage: React.FC = () => {
                     .map(([key, value]) => ({[key]: Number(value)}))
                     .reduce((acc, curr) => ({...acc, ...curr}), {}),
                 period: appContext.period,
+                idFromXml: Number(workplace._attributes.id),
                 number: Number(workplace._attributes.id),
                 setupEvents: Number(workplace._attributes.setupevents),
                 idleTime: Number(workplace._attributes.idletime),
@@ -205,9 +200,6 @@ const SimulationFromXmlFilePage: React.FC = () => {
                 wageCosts: Number(workplace._attributes.wagecosts),
                 machineIdleTimeCosts: Number(workplace._attributes.machineidletimecosts),
                 isIdleTimeCosts: true,
-                isWaitingListWorkStations: false,
-                isWaitingListStock: false,
-                isOrdersInWork: false,
             }))
     }
 
@@ -223,10 +215,7 @@ const SimulationFromXmlFilePage: React.FC = () => {
                 period: appContext.period,
                 number: Number(workplace._attributes.id),
                 timeNeed: Number(workplace._attributes.timeneed),
-                isIdleTimeCosts: false,
                 isWaitingListWorkStations: true,
-                isWaitingListStock: false,
-                isOrdersInWork: false,
             }))
     }
 

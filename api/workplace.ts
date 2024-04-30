@@ -2,6 +2,7 @@ import {axiosClient} from "@/api/http-client";
 
 export type Workplace = {
     id: number;
+    idFromXml?: number;
     period?: number;
     setupEvents?: number;
     idleTime?: number;
@@ -26,7 +27,13 @@ export type WorkplaceDto = Omit<Workplace, "id">;
 export const getWorkplacesByPeriodApi = async (period: number): Promise<Workplace[]> => {
     const response = await axiosClient.get<Workplace[]>(`/workplaces?period=${period}`);
     return response.data;
-}
+};
+
+export const getWorkPlacesByPeriodAndIsIdleTimeCostsApi = async (period: number): Promise<Workplace[]> => {
+    const response = await axiosClient.get<Workplace[]>(`/workplaces?period=${period}&isIdleTimeCost=${true}`);
+    return response.data.filter((w) => w.idleTime !== null);
+};
+
 export const createWorkplaceApi = async (workplaceDto: WorkplaceDto): Promise<void> => {
     const payload = JSON.stringify(workplaceDto);
     await axiosClient.post("/workplaces", payload);

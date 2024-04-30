@@ -20,7 +20,7 @@ import {
 } from "@/api/warehousestock";
 import {
     createMultipleWorkplacesApi,
-    createWorkplaceApi,
+    createWorkplaceApi, getWorkPlacesByPeriodAndIsIdleTimeCostsApi,
     getWorkplacesByPeriodApi,
     Workplace,
     WorkplaceDto
@@ -58,6 +58,7 @@ type ContextOutput = {
     getWorkplacesByPeriod: (period: number) => Promise<Workplace[]>;
     createWorkplace: (workplaceDto: WorkplaceDto) => Promise<void>;
     createMultipleWorkplaces: (workplaceDtoList: WorkplaceDto[]) => Promise<void>;
+    getWorkPlacesByPeriodAndIsIdleTimeCosts: (period: number) => Promise<Workplace[]>;
     // Waiting lists
     getWaitingListByPeriod: (period: number) => Promise<WaitingList[]>;
     createWaitingList: (waitingListDto: WaitingListDto) => Promise<void>;
@@ -120,7 +121,7 @@ export const ApplicationContextProvider: React.FC<Props> = (props: Props) => {
         return await createMultipleOrdersApi(orderDtoList);
     };
 
-    const getAppOrderByPeriodAndIsInwardStockMovement = async (): Promise<Order[]> => {
+    const getAppOrderByIsInwardStockMovement = async (): Promise<Order[]> => {
         return await getAppOrderByIsInwardStockMovementApi();
     };
 
@@ -148,6 +149,10 @@ export const ApplicationContextProvider: React.FC<Props> = (props: Props) => {
         return await createMultipleWorkplacesApi(workplaceDtoList);
     };
 
+    const getWorkPlacesByPeriodAndIsIdleTimeCosts = async (period: number): Promise<Workplace[]> => {
+        return await getWorkPlacesByPeriodAndIsIdleTimeCostsApi(period);
+    };
+
     const getWaitingListByPeriod = async (period: number): Promise<WaitingList[]> => {
         return await getWaitingListByPeriodApi(period);
     };
@@ -160,7 +165,7 @@ export const ApplicationContextProvider: React.FC<Props> = (props: Props) => {
         return await createMultipleWaitingListsApi(waitingListDtoList);
     };
 
-    const getBatchesByOrderId = async (orderId: number): Promise<Batch[]> => {
+    const getBatchesByItemNumber = async (orderId: number): Promise<Batch[]> => {
         return await getBatchesByItemNumberApi(orderId);
     };
 
@@ -184,17 +189,18 @@ export const ApplicationContextProvider: React.FC<Props> = (props: Props) => {
             getOrdersByPeriod,
             createOrder,
             createMultipleOrders,
-            getAppOrderByIsInwardStockMovement: getAppOrderByPeriodAndIsInwardStockMovement,
+            getAppOrderByIsInwardStockMovement,
             getWarehouseStocksByPeriod,
             createWarehouseStock,
             createMultipleWarehouseStocks,
             getWorkplacesByPeriod,
             createWorkplace,
+            getWorkPlacesByPeriodAndIsIdleTimeCosts,
             createMultipleWorkplaces,
             getWaitingListByPeriod,
             createWaitingList,
             createMultipleWaitingLists,
-            getBatchesByItemNumber: getBatchesByOrderId,
+            getBatchesByItemNumber,
             createBatch,
             createMultipleBatches,
         }}>

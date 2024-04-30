@@ -24,6 +24,7 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
 import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined';
 import TransitEnterexitIcon from '@mui/icons-material/TransitEnterexit';
+import PriceChangeOutlinedIcon from '@mui/icons-material/PriceChangeOutlined';
 
 const INITIAL_SIDEBAR_STATE = true;
 
@@ -106,6 +107,12 @@ export const SidebarComponent: React.FC = () => {
             icon: <TransitEnterexitIcon />,
             isActive: pathname.includes("/additions-in-warehouse"),
             onClick: () => router.push("/additions-in-warehouse"),
+        },
+        {
+            label: "Leerzeitenkosten",
+            icon: <PriceChangeOutlinedIcon />,
+            isActive: pathname.includes("/idletimecosts"),
+            onClick: () => router.push("/idletimecosts"),
         },
         {
             label: "Lagerbewegungen",
