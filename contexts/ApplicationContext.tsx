@@ -80,7 +80,7 @@ type Props = Readonly<PropsWithChildren>;
 export const ApplicationContextProvider: React.FC<Props> = (props: Props) => {
     const { children } = props;
 
-    const [period, setPeriod] = useState<number>(4);
+    const [period, setPeriod] = useState<number>(3);
 
     const getForecastByPeriod = async (period: number): Promise<Forecast> => {
         return await getForecastByPeriodApi(period);
