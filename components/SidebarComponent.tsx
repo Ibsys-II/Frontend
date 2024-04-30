@@ -25,6 +25,7 @@ import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
 import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined';
 import TransitEnterexitIcon from '@mui/icons-material/TransitEnterexit';
 import PriceChangeOutlinedIcon from '@mui/icons-material/PriceChangeOutlined';
+import DoNotDisturbOnTotalSilenceOutlinedIcon from '@mui/icons-material/DoNotDisturbOnTotalSilenceOutlined';
 
 const INITIAL_SIDEBAR_STATE = true;
 
@@ -113,6 +114,12 @@ export const SidebarComponent: React.FC = () => {
             icon: <PriceChangeOutlinedIcon />,
             isActive: pathname.includes("/idletimecosts"),
             onClick: () => router.push("/idletimecosts"),
+        },
+        {
+            label: "Aufträge in Bearbeitung",
+            icon: <DoNotDisturbOnTotalSilenceOutlinedIcon />,
+            isActive: pathname.includes("/ordersinwork"),
+            onClick: () => router.push("/ordersinwork"),
         },
         {
             label: "Lagerbewegungen",

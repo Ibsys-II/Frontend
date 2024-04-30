@@ -20,7 +20,7 @@ import {
 } from "@/api/warehousestock";
 import {
     createMultipleWorkplacesApi,
-    createWorkplaceApi, getWorkPlacesByPeriodAndIsIdleTimeCostsApi,
+    createWorkplaceApi, getWorkPlacesByPeriodAndIsIdleTimeCostsApi, getWorkPlacesByPeriodAndIsOrdersInWorkApi,
     getWorkplacesByPeriodApi,
     Workplace,
     WorkplaceDto
@@ -59,6 +59,7 @@ type ContextOutput = {
     createWorkplace: (workplaceDto: WorkplaceDto) => Promise<void>;
     createMultipleWorkplaces: (workplaceDtoList: WorkplaceDto[]) => Promise<void>;
     getWorkPlacesByPeriodAndIsIdleTimeCosts: (period: number) => Promise<Workplace[]>;
+    getWorkPlacesByPeriodAndIsOrdersInWork: (period: number) => Promise<Workplace[]>;
     // Waiting lists
     getWaitingListByPeriod: (period: number) => Promise<WaitingList[]>;
     createWaitingList: (waitingListDto: WaitingListDto) => Promise<void>;
@@ -149,6 +150,10 @@ export const ApplicationContextProvider: React.FC<Props> = (props: Props) => {
         return await createMultipleWorkplacesApi(workplaceDtoList);
     };
 
+    const getWorkPlacesByPeriodAndIsOrdersInWork = async (period: number): Promise<Workplace[]> => {
+        return await getWorkPlacesByPeriodAndIsOrdersInWorkApi(period);
+    };
+
     const getWorkPlacesByPeriodAndIsIdleTimeCosts = async (period: number): Promise<Workplace[]> => {
         return await getWorkPlacesByPeriodAndIsIdleTimeCostsApi(period);
     };
@@ -196,6 +201,7 @@ export const ApplicationContextProvider: React.FC<Props> = (props: Props) => {
             getWorkplacesByPeriod,
             createWorkplace,
             getWorkPlacesByPeriodAndIsIdleTimeCosts,
+            getWorkPlacesByPeriodAndIsOrdersInWork,
             createMultipleWorkplaces,
             getWaitingListByPeriod,
             createWaitingList,

@@ -55,7 +55,7 @@ export const PageWrapperComponent: React.FC<Props> = (props) => {
                             <FormLabel>Periode</FormLabel>
                             <Autocomplete
                                 value={String(appContext.period)}
-                                options={["4", "5"]}
+                                options={["3", "4", "5"]}
                                 onChange={(_e, newValue) => appContext.setPeriod(newValue as unknown as number)}
                                 sx={{
                                     maxWidth: "200px"

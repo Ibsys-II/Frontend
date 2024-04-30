@@ -34,6 +34,11 @@ export const getWorkPlacesByPeriodAndIsIdleTimeCostsApi = async (period: number)
     return response.data.filter((w) => w.idleTime !== null);
 };
 
+export const getWorkPlacesByPeriodAndIsOrdersInWorkApi = async (period: number): Promise<Workplace[]> => {
+    const response = await axiosClient.get<Workplace[]>(`/workplaces?period=${period}&isOrdersInWork=${true}`);
+    return response.data;
+};
+
 export const createWorkplaceApi = async (workplaceDto: WorkplaceDto): Promise<void> => {
     const payload = JSON.stringify(workplaceDto);
     await axiosClient.post("/workplaces", payload);

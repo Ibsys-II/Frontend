@@ -12,7 +12,7 @@ export const StatsCardComponent: React.FC<Props> = (props: Props) => {
     const { label, value } = props;
 
     return (
-        <Card sx={{ minWidth: "295px", maxWidth: "295px" }}>
+        <Card sx={{ minWidth: "294px", maxWidth: "294px" }}>
             <CardContent orientation="horizontal">
                 <CardContent>
                     <Typography level="h4">{value}</Typography>
