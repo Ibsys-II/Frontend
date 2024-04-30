@@ -23,6 +23,7 @@ import { v4 as uuid } from "uuid";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
 import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined';
+import TransitEnterexitIcon from '@mui/icons-material/TransitEnterexit';
 
 const INITIAL_SIDEBAR_STATE = true;
 
@@ -99,6 +100,12 @@ export const SidebarComponent: React.FC = () => {
             icon: <WarehouseOutlinedIcon />,
             isActive: pathname.includes("/warehouse"),
             onClick: () => router.push("/warehouse"),
+        },
+        {
+            label: "Lagerzugänge",
+            icon: <TransitEnterexitIcon />,
+            isActive: pathname.includes("/additions-in-warehouse"),
+            onClick: () => router.push("/additions-in-warehouse"),
         },
         {
             label: "Lagerbewegungen",

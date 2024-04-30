@@ -162,6 +162,7 @@ const SimulationFromXmlFilePage: React.FC = () => {
                 isFutureInwardStockMovement: false,
                 isCompletedOrders: false,
                 isCycleTime: false,
+                idFromXml: Number(order._attributes.id),
                 articleId: Number(order._attributes.article),
             }))
     }
@@ -182,6 +183,7 @@ const SimulationFromXmlFilePage: React.FC = () => {
                 isFutureInwardStockMovement: true,
                 isCompletedOrders: false,
                 isCycleTime: false,
+                idFromXml: Number(order._attributes.id),
                 articleId: Number(order._attributes.article),
             }))
     }

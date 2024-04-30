@@ -3,7 +3,14 @@ import {createForecastApi, Forecast, ForecastDto, getForecastByPeriodApi} from "
 import React, {createContext, PropsWithChildren, ReactNode, useState} from "react";
 import {InputTypeMap} from "@mui/joy";
 import {Article, getArticlesApi, getArticlesByNumberApi} from "@/api/article";
-import {createMultipleOrdersApi, createOrderApi, getOrdersByPeriodApi, Order, OrderDto} from "@/api/order";
+import {
+    createMultipleOrdersApi,
+    createOrderApi,
+    getAppOrderByIsInwardStockMovementApi,
+    getOrdersByPeriodApi,
+    Order,
+    OrderDto
+} from "@/api/order";
 import {
     createMultipleWarehouseStocksApi,
     createWarehouseStockApi,
@@ -42,6 +49,7 @@ type ContextOutput = {
     getOrdersByPeriod: (period: number) => Promise<Order[]>;
     createOrder: (orderDto: OrderDto) => Promise<void>;
     createMultipleOrders: (orderDtoList: OrderDto[]) => Promise<void>;
+    getAppOrderByIsInwardStockMovement: () => Promise<Order[]>;
     // WarehouseStocks
     getWarehouseStocksByPeriod: (period: number) => Promise<WarehouseStock[]>;
     createWarehouseStock: (warehouseStockDto: WarehouseStockDto) => Promise<void>;
@@ -112,6 +120,10 @@ export const ApplicationContextProvider: React.FC<Props> = (props: Props) => {
         return await createMultipleOrdersApi(orderDtoList);
     };
 
+    const getAppOrderByPeriodAndIsInwardStockMovement = async (): Promise<Order[]> => {
+        return await getAppOrderByIsInwardStockMovementApi();
+    };
+
     const getWarehouseStocksByPeriod = async (period: number): Promise<WarehouseStock[]> => {
         return await getWarehouseStocksByPeriodApi(period);
     };
@@ -172,6 +184,7 @@ export const ApplicationContextProvider: React.FC<Props> = (props: Props) => {
             getOrdersByPeriod,
             createOrder,
             createMultipleOrders,
+            getAppOrderByIsInwardStockMovement: getAppOrderByPeriodAndIsInwardStockMovement,
             getWarehouseStocksByPeriod,
             createWarehouseStock,
             createMultipleWarehouseStocks,

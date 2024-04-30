@@ -2,6 +2,7 @@ import {axiosClient} from "@/api/http-client";
 
 export type Order = {
     id: number;
+    idFromXml?: number;
     period: number;
     quantity?: number;
     mode?: number;
@@ -29,6 +30,11 @@ export type OrderDto = Omit<Order, "id">;
 
 export const getOrdersByPeriodApi = async (period: number): Promise<Order[]> => {
     const response = await axiosClient.get<Order[]>(`/orders?period=${period}`);
+    return response.data;
+};
+
+export const getAppOrderByIsInwardStockMovementApi = async (): Promise<Order[]> => {
+    const response = await axiosClient.get<Order[]>(`/orders?isInwardStockMovement=${true}`);
     return response.data;
 };
 
