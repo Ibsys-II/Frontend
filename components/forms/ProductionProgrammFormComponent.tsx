@@ -1,41 +1,44 @@
+"use client";
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import {Alert, Box, Button, IconButton, Stack, Typography} from "@mui/joy";
+import {Alert, Button, Card, IconButton, Stack, Typography} from "@mui/joy";
 import {CustomStandardInputComponent} from "@/components/shared/CustomStandardInputComponent";
 import {PageSectionComponent} from "@/components/shared/page-section/PageSectionComponent";
-import {ForecastDto} from "@/api/forecast";
-import {InputField, PropertiesToString} from "@/contexts/ApplicationContext";
+import {GOOD_TO_PRODUCE, InputField} from "@/contexts/ApplicationContext";
 import useApplicationContext from "@/hooks/useApplicationContext";
 import useSubmitForm from "@/hooks/useSubmitForm";
 import CircularProgress from "@mui/joy/CircularProgress";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import PropsSimulationForm from "@/components/forms/formProps";
+import {SaleAndProductionProgram} from "@/api/neu/saleAndProductionProgram";
 
-type ForecastDtoUpdateModel = PropertiesToString<ForecastDto>;
-
-type Props = PropsSimulationForm;
-
-export const ProductionProgrammFormComponent: React.FC<Props> = (props) => {
+export const ProductionProgrammFormComponent: React.FC<PropsSimulationForm> = (props) => {
     const { onSubmit } = props;
     const appContext = useApplicationContext();
-    const INITIAL_FORECAST_DTO_STATE: ForecastDtoUpdateModel = {
-        p1: "",
-        p2: "",
-        p3: "",
-        period: appContext.period as unknown as string,
-    }
-    const [forecastDto, setForecastDto] = useState<ForecastDtoUpdateModel>(INITIAL_FORECAST_DTO_STATE);
+
+    const [saleAndProductionProgramForChildrenBike, setSaleAndProductionProgramForChildrenBike] = useState<SaleAndProductionProgram | undefined>(undefined);
+    const [saleAndProductionProgramForWomenBike, setSaleAndProductionProgramForWomenBike] = useState<SaleAndProductionProgram | undefined>(undefined);
+    const [saleAndProductionProgramForMenBike, setSaleAndProductionProgramForMenBike] = useState<SaleAndProductionProgram | undefined>(undefined);
+
     const { setFetcher, isLoading, error } = useSubmitForm();
 
     useEffect(() => {
-        setForecastDto(prevState => ({
-            ...prevState,
-            period: appContext.period as unknown as string,
-        }))
-    }, [appContext.period]);
+        (async () => {
+                const saleAndProductionProgram = await appContext.getAllSaleAndProductionProgram();
+                const saleAndProductionForChildrenBike = saleAndProductionProgram.find((s) => s.article === GOOD_TO_PRODUCE.CHILDREN_BIKE);
+                const saleAndProductionForWomenBike = saleAndProductionProgram.find((s) => s.article === GOOD_TO_PRODUCE.WOMEN_BIKE);
+                const saleAndProductionForMenBike = saleAndProductionProgram.find((s) => s.article === GOOD_TO_PRODUCE.MEN_BIKE);
 
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+                setSaleAndProductionProgramForChildrenBike(saleAndProductionForChildrenBike!);
+                setSaleAndProductionProgramForWomenBike(saleAndProductionForWomenBike!);
+                setSaleAndProductionProgramForMenBike(saleAndProductionForMenBike!);
+            }
+        )();
+    }, [appContext]);
+
+    const handleChangeForChildrenBikeInput = (event: ChangeEvent<HTMLInputElement>) => {
         event?.preventDefault();
-        setForecastDto((prevState) => {
+        setSaleAndProductionProgramForChildrenBike((prevState) => {
+            if (!prevState) return;
             return {
                 ...prevState,
                 [event.target.name]: event.target.value,
@@ -43,65 +46,199 @@ export const ProductionProgrammFormComponent: React.FC<Props> = (props) => {
         })
     };
 
-    const fieldList: InputField[] = [
+    const handleChangeForWomenBikeInput = (event: ChangeEvent<HTMLInputElement>) => {
+        event?.preventDefault();
+        setSaleAndProductionProgramForWomenBike((prevState) => {
+            if (!prevState) return;
+            return {
+                ...prevState,
+                [event.target.name]: event.target.value,
+            }
+        })
+    };
+
+    const handleChangeForMenBikeInput = (event: ChangeEvent<HTMLInputElement>) => {
+        event?.preventDefault();
+        setSaleAndProductionProgramForMenBike((prevState) => {
+            if (!prevState) return;
+            return {
+                ...prevState,
+                [event.target.name]: event.target.value,
+            }
+        })
+    };
+
+    const fieldListChildrenBike: InputField[] = !saleAndProductionProgramForChildrenBike ? [] : [
         {
             type: "number",
-            name: "p1",
-            value: forecastDto.p1,
-            onChange: handleChange,
-            label: "Prognose Produkt P1",
-            placeholder: "Prognose Produkt P1",
-            error: !forecastDto.p1,
+            name: "pN",
+            value: saleAndProductionProgramForChildrenBike.pN,
+            onChange: handleChangeForChildrenBikeInput,
+            label: "Aktuelle Periode (Periode N)",
+            placeholder: "Aktuelle Periode (Periode N)",
+            error: !saleAndProductionProgramForChildrenBike.pN,
         },
         {
             type: "number",
-            name: "p2",
-            value: forecastDto.p2,
-            onChange: handleChange,
-            label: "Prognose Produkt P2",
-            placeholder: "Prognose Produkt P2",
-            error: !forecastDto.p2,
+            name: "pNPlusOne",
+            value: saleAndProductionProgramForChildrenBike.pNPlusOne,
+            onChange: handleChangeForChildrenBikeInput,
+            label: "Periode N+1",
+            placeholder: "Periode N+1",
+            error: !saleAndProductionProgramForChildrenBike.pNPlusOne,
         },
         {
             type: "number",
-            name: "p3",
-            value: forecastDto.p3,
-            onChange: handleChange,
-            label: "Prognose Produkt P3",
-            placeholder: "Prognose Produkt P3",
-            error: !forecastDto.p3,
+            name: "pNPlusTwo",
+            value: saleAndProductionProgramForChildrenBike.pNPlusTwo,
+            onChange: handleChangeForChildrenBikeInput,
+            label: "Periode N+2",
+            placeholder: "Periode N+2",
+            error: !saleAndProductionProgramForChildrenBike.pNPlusTwo,
         },
         {
             type: "number",
-            name: "period",
-            value: forecastDto.period,
-            onChange: handleChange,
-            label: "Periode",
-            placeholder: "Periode",
-            disabled: true,
-            error: !forecastDto.period,
+            name: "pNPlusThree",
+            value: saleAndProductionProgramForChildrenBike.pNPlusThree,
+            onChange: handleChangeForChildrenBikeInput,
+            label: "Periode N+3",
+            placeholder: "Periode N+3",
+            error: !saleAndProductionProgramForChildrenBike.pNPlusThree,
+        },
+    ];
+    const fieldListWomenBike: InputField[] = !saleAndProductionProgramForWomenBike ? [] : [
+        {
+            type: "number",
+            name: "pN",
+            value: saleAndProductionProgramForWomenBike.pN,
+            onChange: handleChangeForWomenBikeInput,
+            label: "Aktuelle Periode (Periode N)",
+            placeholder: "Aktuelle Periode (Periode N)",
+            error: !saleAndProductionProgramForWomenBike.pN,
+        },
+        {
+            type: "number",
+            name: "pNPlusOne",
+            value: saleAndProductionProgramForWomenBike.pNPlusOne,
+            onChange: handleChangeForWomenBikeInput,
+            label: "Periode N+1",
+            placeholder: "Periode N+1",
+            error: !saleAndProductionProgramForWomenBike.pNPlusOne,
+        },
+        {
+            type: "number",
+            name: "pNPlusTwo",
+            value: saleAndProductionProgramForWomenBike.pNPlusTwo,
+            onChange: handleChangeForWomenBikeInput,
+            label: "Periode N+2",
+            placeholder: "Periode N+2",
+            error: !saleAndProductionProgramForWomenBike.pNPlusTwo,
+        },
+        {
+            type: "number",
+            name: "pNPlusThree",
+            value: saleAndProductionProgramForWomenBike.pNPlusThree,
+            onChange: handleChangeForWomenBikeInput,
+            label: "Periode N+3",
+            placeholder: "Periode N+3",
+            error: !saleAndProductionProgramForWomenBike.pNPlusThree,
+        },
+    ];
+    const fieldListMenBike: InputField[] = !saleAndProductionProgramForMenBike ? [] : [
+        {
+            type: "number",
+            name: "pN",
+            value: saleAndProductionProgramForMenBike.pN,
+            onChange: handleChangeForMenBikeInput,
+            label: "Aktuelle Periode (Periode N)",
+            placeholder: "Aktuelle Periode (Periode N)",
+            error: !saleAndProductionProgramForMenBike.pN,
+        },
+        {
+            type: "number",
+            name: "pNPlusOne",
+            value: saleAndProductionProgramForMenBike.pNPlusOne,
+            onChange: handleChangeForMenBikeInput,
+            label: "Periode N+1",
+            placeholder: "Periode N+1",
+            error: !saleAndProductionProgramForMenBike.pNPlusOne,
+        },
+        {
+            type: "number",
+            name: "pNPlusTwo",
+            value: saleAndProductionProgramForMenBike.pNPlusTwo,
+            onChange: handleChangeForMenBikeInput,
+            label: "Periode N+2",
+            placeholder: "Periode N+2",
+            error: !saleAndProductionProgramForMenBike.pNPlusTwo,
+        },
+        {
+            type: "number",
+            name: "pNPlusThree",
+            value: saleAndProductionProgramForMenBike.pNPlusThree,
+            onChange: handleChangeForMenBikeInput,
+            label: "Periode N+3",
+            placeholder: "Periode N+3",
+            error: !saleAndProductionProgramForMenBike.pNPlusThree,
         },
     ];
 
-    const isFormValid = fieldList.every(field => field.error);
+    const isFormChildrenBikeValid = fieldListChildrenBike.every(field => field.error);
+    const isFormWomenBikeValid = fieldListWomenBike.every(field => field.error);
+    const isFormMenBikeValid = fieldListMenBike.every(field => field.error);
 
     const handleSave = async () => {
         await setFetcher(async () => {
-            await appContext.createForecast(forecastDto as unknown as ForecastDto);
-            onSubmit();
+            if (!saleAndProductionProgramForChildrenBike ||
+                !saleAndProductionProgramForWomenBike ||
+                !saleAndProductionProgramForMenBike) return;
+
+            const dataToUpdate = [
+                saleAndProductionProgramForChildrenBike,
+                saleAndProductionProgramForWomenBike,
+                saleAndProductionProgramForMenBike,
+            ];
+
+            await appContext.updateSaleAndProductionProgram(dataToUpdate);
+            onSubmit && onSubmit();
         });
     };
+
+    if (!saleAndProductionProgramForChildrenBike ||
+        !saleAndProductionProgramForWomenBike ||
+        !saleAndProductionProgramForMenBike) return <div>Wird geladen...</div>
 
     return (
         <PageSectionComponent
             title="Vertriebswunsch"
-            subtitle="Geben Sie die Prognosen ein"
+            subtitle="Geben Sie den Vertriebswunsch bei allen Produkten ein"
             endDecorator={<IconButton variant={"outlined"}><MoreHorizIcon /></IconButton>}
         >
-            <Stack spacing={"var(--gap-2)"}>
-                {fieldList.map((field, index) =>
-                    <CustomStandardInputComponent {...field} key={index} />
-                )}
+            <Stack spacing={"var(--gap-3)"}>
+                <Card sx={{ px: "var(--gap-3)", py: "var(--gap-4)" }}>
+                    <Stack spacing={"var(--gap-2)"}>
+                        <Typography level={"h4"}>Kinderfahrrad({GOOD_TO_PRODUCE.CHILDREN_BIKE})</Typography>
+                        {fieldListChildrenBike.map((field, index) =>
+                            <CustomStandardInputComponent {...field} key={index} />
+                        )}
+                    </Stack>
+                </Card>
+                <Card sx={{ px: "var(--gap-3)", py: "var(--gap-4)" }}>
+                    <Stack spacing={"var(--gap-2)"}>
+                        <Typography level={"h4"}>Damenfahrrad({GOOD_TO_PRODUCE.WOMEN_BIKE})</Typography>
+                        {fieldListWomenBike.map((field, index) =>
+                            <CustomStandardInputComponent {...field} key={index} />
+                        )}
+                    </Stack>
+                </Card>
+                <Card sx={{ px: "var(--gap-3)", py: "var(--gap-4)" }}>
+                    <Stack spacing={"var(--gap-2)"}>
+                        <Typography level={"h4"}>Herrenfahrrad({GOOD_TO_PRODUCE.MEN_BIKE})</Typography>
+                        {fieldListMenBike.map((field, index) =>
+                            <CustomStandardInputComponent {...field} key={index} />
+                        )}
+                    </Stack>
+                </Card>
                 {error ?
                     <Alert color="danger">
                         <div>
@@ -112,13 +249,12 @@ export const ProductionProgrammFormComponent: React.FC<Props> = (props) => {
                 }
                 <Button
                     onClick={handleSave}
-                    disabled={isFormValid || isLoading}
+                    disabled={isFormChildrenBikeValid && isFormWomenBikeValid && isFormMenBikeValid || isLoading}
                     startDecorator={isLoading ? <CircularProgress size={"sm"} /> : null}
                 >
-                    {isLoading ? "Ihr Vertriebswunsch wird gespeichert..." : "Speichern"}
+                    {isLoading ? "Ihr Vertriebswunsch wird gespeichert..." : "Vertriebswunsch Speichern"}
                 </Button>
             </Stack>
         </PageSectionComponent>
     );
 };
-

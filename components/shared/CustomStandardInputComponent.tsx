@@ -22,7 +22,7 @@ export const CustomStandardInputComponent: React.FC<Props> = (props) => {
             <Input
                 {...rest}
                 placeholder=""
-                size="lg"
+                size="md"
                 variant={props.disabled ? "solid" : "outlined"}
                 endDecorator={
                     props.disabled ? (

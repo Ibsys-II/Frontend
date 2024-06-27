@@ -1,6 +1,6 @@
 "use client";
 import {createForecastApi, Forecast, ForecastDto, getForecastByPeriodApi} from "@/api/forecast";
-import React, {createContext, PropsWithChildren, ReactNode, useState} from "react";
+import React, {ComponentType, createContext, PropsWithChildren, ReactNode, useState} from "react";
 import {InputTypeMap} from "@mui/joy";
 import {Article, getArticlesApi, getArticlesByNumberApi} from "@/api/article";
 import {
@@ -33,6 +33,11 @@ import {
     WaitingListDto
 } from "@/api/waitingList";
 import {Batch, BatchDto, createMultipleBatchesApi, getBatchesByItemNumberApi} from "@/api/batch";
+import {
+    getAllSaleAndProductionProgramApi,
+    SaleAndProductionProgram,
+    SaleAndProductionProgramDto, updateSaleAndProductionProgramApi
+} from "@/api/neu/saleAndProductionProgram";
 
 type ContextOutput = {
     // Period
@@ -69,12 +74,23 @@ type ContextOutput = {
     createBatch: (batchDto: BatchDto) => Promise<void>;
     createMultipleBatches: (batchDtoList: BatchDto[]) => Promise<void>;
 
+    // New APIs
+    // Sale and production program
+    getAllSaleAndProductionProgram: () => Promise<SaleAndProductionProgram[]>;
+    updateSaleAndProductionProgram: (saleAndProductionProgramList: SaleAndProductionProgram[]) => Promise<void>;
+
 }
 
 // @ts-ignore
 export const ApplicationContext = createContext<ContextOutput>({});
 
 export const ARTICLES_NAME_TO_PRODUCE = new Set<string>(["1P", "2P", "3P"]);
+
+export enum GOOD_TO_PRODUCE {
+    CHILDREN_BIKE = "P1",
+    WOMEN_BIKE = "P2",
+    MEN_BIKE = "P3",
+}
 
 type Props = Readonly<PropsWithChildren>;
 
@@ -182,6 +198,16 @@ export const ApplicationContextProvider: React.FC<Props> = (props: Props) => {
         return await createMultipleBatchesApi(batchDtoList);
     };
 
+    // New Apis
+    // Sale and production program
+    const getAllSaleAndProductionProgram = async (): Promise<SaleAndProductionProgram[]> => {
+        return await getAllSaleAndProductionProgramApi();
+    }
+
+    const updateSaleAndProductionProgram = async (saleAndProductionProgramList: SaleAndProductionProgram[]): Promise<void> => {
+        return await updateSaleAndProductionProgramApi(saleAndProductionProgramList);
+    }
+
     return (
         <ApplicationContext.Provider value={{
             period,
@@ -209,6 +235,9 @@ export const ApplicationContextProvider: React.FC<Props> = (props: Props) => {
             getBatchesByItemNumber,
             createBatch,
             createMultipleBatches,
+            // New APIs
+            getAllSaleAndProductionProgram,
+            updateSaleAndProductionProgram,
         }}>
             {children}
         </ApplicationContext.Provider>
@@ -238,7 +267,7 @@ export type PropertiesToString<T> = {
 export type SimulationStep = {
     title: ReactNode;
     description: ReactNode;
-    component: ReactNode;
+    component: () => ReactNode;
     onNext?: () => void;
     onPrevious?: () => void;
 };

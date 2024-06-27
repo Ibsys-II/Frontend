@@ -1,5 +1,5 @@
 type PropsSimulationForm = {
-    onSubmit: () => void;
+    onSubmit?: (() => void) | undefined | null;
 };
 
 export default PropsSimulationForm;
