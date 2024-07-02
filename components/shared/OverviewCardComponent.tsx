@@ -3,9 +3,11 @@ import React from "react";
 import {Box, Button, Sheet, Typography} from "@mui/joy";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
+import {useRouter} from "next/navigation";
 
 export const OverviewCardComponent: React.FC = () => {
     const { isSmall } = useMediaQuery();
+    const router = useRouter();
 
     return (
         <Sheet
@@ -41,9 +43,9 @@ export const OverviewCardComponent: React.FC = () => {
                 >
                     <Button
                         sx={{ minWidth: 120 }}
-                        onClick={() => {}}
+                        onClick={() => router.push("/upload-from-xml-file")}
                     >
-                        Zur Simulation
+                        Zum Datenimport
                     </Button>
                     <Button
                         variant="plain"

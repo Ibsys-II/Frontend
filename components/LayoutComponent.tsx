@@ -2,8 +2,17 @@
 import React, { PropsWithChildren } from "react";
 import { Box } from "@mui/joy";
 import styled from "styled-components";
-import { AppBarComponent } from "@/components/AppBarComponent";
-import { SidebarComponent } from "@/components/SidebarComponent";
+import dynamic from "next/dynamic";
+
+const AppBarComponent = dynamic(
+    () => import("@/components/AppBarComponent"),
+    { ssr: false }
+);
+
+const SidebarComponent = dynamic(
+    () => import("@/components/SidebarComponent"),
+    { ssr: false }
+);
 
 /**
  * Typ-Alias für die Eigenschaften der `LayoutComponent`.

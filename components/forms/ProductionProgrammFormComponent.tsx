@@ -212,7 +212,7 @@ export const ProductionProgrammFormComponent: React.FC<PropsSimulationForm> = (p
         <PageSectionComponent
             title="Vertriebswunsch"
             subtitle="Geben Sie den Vertriebswunsch bei allen Produkten ein"
-            endDecorator={<IconButton variant={"outlined"}><MoreHorizIcon /></IconButton>}
+            //endDecorator={<IconButton variant={"outlined"}><MoreHorizIcon /></IconButton>}
         >
             <Stack spacing={"var(--gap-3)"}>
                 <Card sx={{ px: "var(--gap-3)", py: "var(--gap-4)" }}>
@@ -247,13 +247,16 @@ export const ProductionProgrammFormComponent: React.FC<PropsSimulationForm> = (p
                         </div>
                     </Alert> : null
                 }
-                <Button
-                    onClick={handleSave}
-                    disabled={isFormChildrenBikeValid && isFormWomenBikeValid && isFormMenBikeValid || isLoading}
-                    startDecorator={isLoading ? <CircularProgress size={"sm"} /> : null}
-                >
-                    {isLoading ? "Ihr Vertriebswunsch wird gespeichert..." : "Vertriebswunsch Speichern"}
-                </Button>
+                <div>
+                    <Button
+                        onClick={handleSave}
+                        disabled={isFormChildrenBikeValid && isFormWomenBikeValid && isFormMenBikeValid || isLoading}
+                        startDecorator={isLoading ? <CircularProgress size={"sm"} /> : null}
+                        sx={{ justifySelf: "start" }}
+                    >
+                        {isLoading ? "Ihr Vertriebswunsch wird gespeichert..." : "Vertriebswunsch Speichern"}
+                    </Button>
+                </div>
             </Stack>
         </PageSectionComponent>
     );

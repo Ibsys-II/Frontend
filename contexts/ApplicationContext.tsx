@@ -1,6 +1,6 @@
 "use client";
 import {createForecastApi, Forecast, ForecastDto, getForecastByPeriodApi} from "@/api/forecast";
-import React, {ComponentType, createContext, PropsWithChildren, ReactNode, useState} from "react";
+import React, {createContext, PropsWithChildren, ReactNode, useState} from "react";
 import {InputTypeMap} from "@mui/joy";
 import {Article, getArticlesApi, getArticlesByNumberApi} from "@/api/article";
 import {
@@ -20,7 +20,9 @@ import {
 } from "@/api/warehousestock";
 import {
     createMultipleWorkplacesApi,
-    createWorkplaceApi, getWorkPlacesByPeriodAndIsIdleTimeCostsApi, getWorkPlacesByPeriodAndIsOrdersInWorkApi,
+    createWorkplaceApi,
+    getWorkPlacesByPeriodAndIsIdleTimeCostsApi,
+    getWorkPlacesByPeriodAndIsOrdersInWorkApi,
     getWorkplacesByPeriodApi,
     Workplace,
     WorkplaceDto
@@ -36,8 +38,12 @@ import {Batch, BatchDto, createMultipleBatchesApi, getBatchesByItemNumberApi} fr
 import {
     getAllSaleAndProductionProgramApi,
     SaleAndProductionProgram,
-    SaleAndProductionProgramDto, updateSaleAndProductionProgramApi
+    updateSaleAndProductionProgramApi
 } from "@/api/neu/saleAndProductionProgram";
+import {getAllProductionOrderApi, ProductionOrder, updateProductionOrderApi} from "@/api/neu/productionOrder";
+import {CapacityPlan, getAllCapacityPlanApi} from "@/api/neu/capacityPlan";
+import {CapacityPlanSumUp, getAllCapacityPlanSumUpApi} from "@/api/neu/capacityPlanSumUp";
+import {clearDbApi} from "@/api/neu/dbconfig";
 
 type ContextOutput = {
     // Period
@@ -78,7 +84,17 @@ type ContextOutput = {
     // Sale and production program
     getAllSaleAndProductionProgram: () => Promise<SaleAndProductionProgram[]>;
     updateSaleAndProductionProgram: (saleAndProductionProgramList: SaleAndProductionProgram[]) => Promise<void>;
+    getAllProductionOrder: () => Promise<ProductionOrder[]>;
+    updateProductionOrder: (productionOrder: ProductionOrder) => Promise<void>;
 
+    // Capacity plan
+    getAllCapacityPlan: () => Promise<CapacityPlan[]>;
+
+    // Capacity plan sum up
+    getAllCapacityPlanSumUp: () => Promise<CapacityPlanSumUp[]>;
+
+    // Clear Db
+    clearDb: () => Promise<void>;
 }
 
 // @ts-ignore
@@ -208,6 +224,26 @@ export const ApplicationContextProvider: React.FC<Props> = (props: Props) => {
         return await updateSaleAndProductionProgramApi(saleAndProductionProgramList);
     }
 
+    const getAllProductionOrder = async (): Promise<ProductionOrder[]> => {
+        return await getAllProductionOrderApi();
+    }
+
+    const updateProductionOrder = async (productionOrder: ProductionOrder): Promise<void> => {
+        await updateProductionOrderApi(productionOrder);
+    }
+
+    const getAllCapacityPlan = async (): Promise<CapacityPlan[]> => {
+        return await getAllCapacityPlanApi();
+    }
+
+    const getAllCapacityPlanSumUp = async (): Promise<CapacityPlanSumUp[]> => {
+        return await getAllCapacityPlanSumUpApi();
+    }
+
+    const clearDb = async (): Promise<void> => {
+        await clearDbApi();
+    }
+
     return (
         <ApplicationContext.Provider value={{
             period,
@@ -238,6 +274,11 @@ export const ApplicationContextProvider: React.FC<Props> = (props: Props) => {
             // New APIs
             getAllSaleAndProductionProgram,
             updateSaleAndProductionProgram,
+            getAllProductionOrder,
+            updateProductionOrder,
+            getAllCapacityPlan,
+            getAllCapacityPlanSumUp,
+            clearDb,
         }}>
             {children}
         </ApplicationContext.Provider>

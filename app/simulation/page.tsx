@@ -64,7 +64,7 @@ const SimulationPage: React.FC = () => {
     const [activeStep, setActiveStep] = useState<SimulationStep | undefined>(simulationSteps[0]);
 
     return (
-        <PageWrapperComponent title={"Simulation"} showPeriod>
+        <PageWrapperComponent title={"Simulation"}>
             <PageContentContainer>
                 <SimulationStepsContainer>
                     <SimulationStepsComponent steps={simulationSteps} activeStep={activeStep} />

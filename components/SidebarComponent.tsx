@@ -2,30 +2,19 @@
 import React, {ReactNode, useEffect, useState} from "react";
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import PlayCircleFilledWhiteOutlinedIcon from '@mui/icons-material/PlayCircleFilledWhiteOutlined';
-import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 import UploadFileOutlinedIcon from '@mui/icons-material/UploadFileOutlined';
 import KeyboardDoubleArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardDoubleArrowLeftOutlined";
 import KeyboardDoubleArrowRightOutlinedIcon from "@mui/icons-material/KeyboardDoubleArrowRightOutlined";
 import styled from "styled-components";
-import {Box, Typography} from "@mui/joy";
-import {Divider} from "@mui/joy";
+import {Box, Divider, Typography} from "@mui/joy";
 import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
 import ListItemDecorator from "@mui/joy/ListItemDecorator";
 import ListItemButton from "@mui/joy/ListItemButton";
 import {usePathname, useRouter} from "next/navigation";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
-import WidgetsOutlinedIcon from '@mui/icons-material/WidgetsOutlined';
-import WarehouseOutlinedIcon from '@mui/icons-material/WarehouseOutlined';
-import TimelineOutlinedIcon from '@mui/icons-material/TimelineOutlined';
-import HourglassEmptyOutlinedIcon from '@mui/icons-material/HourglassEmptyOutlined';
-import { v4 as uuid } from "uuid";
+import {v4 as uuid} from "uuid";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
-import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined';
-import TransitEnterexitIcon from '@mui/icons-material/TransitEnterexit';
-import PriceChangeOutlinedIcon from '@mui/icons-material/PriceChangeOutlined';
-import DoNotDisturbOnTotalSilenceOutlinedIcon from '@mui/icons-material/DoNotDisturbOnTotalSilenceOutlined';
 
 const INITIAL_SIDEBAR_STATE = true;
 
@@ -43,7 +32,7 @@ type NavigationButton = {
 /**
  * React-Komponente für die Seitenleiste der Anwendung.
  */
-export const SidebarComponent: React.FC = () => {
+const SidebarComponent: React.FC = () => {
     const [isOpen, setIsOpen] = useState<boolean>(INITIAL_SIDEBAR_STATE);
     const router = useRouter();
     const pathname = usePathname();
@@ -64,89 +53,29 @@ export const SidebarComponent: React.FC = () => {
             isActive: pathname === "/",
             onClick: () => router.push("/"),
         },
+    ];
+
+    const middleButtons: NavigationButton[] = [
+        {
+            label: "Datenimport (XML-Datei)",
+            icon: <UploadFileOutlinedIcon />,
+            isActive: pathname.includes("/upload-from-xml-file"),
+            onClick: () => router.push("/upload-from-xml-file"),
+        },
         {
             label: "Simulation",
             icon: <PlayCircleFilledWhiteOutlinedIcon />,
             isActive: pathname.includes("/simulation"),
             onClick: () => router.push("/simulation"),
         },
-        {
-            label: "Ergebnisse",
-            icon: <EmojiEventsOutlinedIcon />,
-            isActive: pathname.includes("/results"),
-            onClick: () => router.push("/results"),
-        },
-        {
-            label: "Simulieren (XML-Datei)",
-            icon: <UploadFileOutlinedIcon />,
-            isActive: pathname.includes("/upload-from-xml-file"),
-            onClick: () => router.push("/upload-from-xml-file"),
-        },
-    ];
-
-    const middleButtons: NavigationButton[] = [
-        {
-            label: "Waren",
-            icon: <Inventory2OutlinedIcon />,
-            isActive: pathname.includes("/goods"),
-            onClick: () => router.push("/goods"),
-        },
-        {
-            label: "Bauteile",
-            icon: <WidgetsOutlinedIcon />,
-            isActive: pathname.includes("/articles"),
-            onClick: () => router.push("/articles"),
-        },
-        {
-            label: "Lagerbestand",
-            icon: <WarehouseOutlinedIcon />,
-            isActive: pathname.includes("/warehouse"),
-            onClick: () => router.push("/warehouse"),
-        },
-        {
-            label: "Lagerzugänge",
-            icon: <TransitEnterexitIcon />,
-            isActive: pathname.includes("/additions-in-warehouse"),
-            onClick: () => router.push("/additions-in-warehouse"),
-        },
-        {
-            label: "Leerzeitenkosten",
-            icon: <PriceChangeOutlinedIcon />,
-            isActive: pathname.includes("/idletimecosts"),
-            onClick: () => router.push("/idletimecosts"),
-        },
-        {
-            label: "Aufträge in Bearbeitung",
-            icon: <DoNotDisturbOnTotalSilenceOutlinedIcon />,
-            isActive: pathname.includes("/ordersinwork"),
-            onClick: () => router.push("/ordersinwork"),
-        },
-        {
-            label: "Lagerbewegungen",
-            icon: <TimelineOutlinedIcon />,
-            isActive: pathname.includes("/stock-movements"),
-            onClick: () => router.push("/stock-movements"),
-        },
-        {
-            label: "Warteschlagen",
-            icon: <HourglassEmptyOutlinedIcon />,
-            isActive: pathname.includes("/waiting-list"),
-            onClick: () => router.push("/waiting-list"),
-        },
-        {
-            label: "Kasse",
-            icon: <AccountBalanceOutlinedIcon />,
-            isActive: pathname.includes("/cash-register"),
-            onClick: () => router.push("/cash-register"),
-        },
     ];
 
     const lowerButtons: NavigationButton[] = [
-        {
-            label: "Einstellungen",
-            icon: <SettingsOutlinedIcon />,
-            onClick: () => router.push("/settings"),
-        },
+        // {
+        //     label: "Einstellungen",
+        //     icon: <SettingsOutlinedIcon />,
+        //     onClick: () => router.push("/settings"),
+        // },
         {
             label: "Seitenleiste zuklappen",
             icon: isOpen ? (
@@ -227,7 +156,9 @@ const ButtonListComponent: React.FC<PropsButtonList> = (
             ))}
         </List>
     );
-};
+}
+
+export default SidebarComponent;
 
 const SidebarWrapper = styled(Box)`
     display: grid;

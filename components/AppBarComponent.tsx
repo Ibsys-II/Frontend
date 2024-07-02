@@ -1,21 +1,38 @@
 "use client";
 import React from "react";
 import styled from "styled-components";
-import {Autocomplete, Box, Divider, Sheet, Stack, Typography} from "@mui/joy";
+import {Autocomplete, Box, Button, Divider, IconButton, Sheet, Stack, Typography, useColorScheme} from "@mui/joy";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
 import LanguageIcon from '@mui/icons-material/Language';
+import NightsStayOutlinedIcon from '@mui/icons-material/NightsStayOutlined';
+import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
+import useApplicationContext from "@/hooks/useApplicationContext";
+import {useRouter} from "next/navigation";
 
 /**
  * React-Komponente für die App Bar der Anwendung.
  *
  * Stellt die Navigationselemente und die Suchfunktion bereit.
  */
-export const AppBarComponent: React.FC = () => {
+const AppBarComponent: React.FC = () => {
     /**
      * Hook zur Ermitlung, ob das Gerät ein kleineres Display hat.
      * Wird für responsives Verhalten der App Bar verwendet.
      */
     const { isSmall } = useMediaQuery();
+    const { mode, setMode } = useColorScheme();
+    const appContext = useApplicationContext();
+    const router = useRouter();
+
+    const switchMode = () => {
+        setMode(mode === 'dark' ? 'light' : 'dark');
+        //setColorScheme(mode === 'dark' ? { light: 'light' } : { dark: 'dark' });
+    }
+
+    const handleClearDb = async () => {
+        await appContext.clearDb();
+        window.location.reload();
+    }
 
     return (
         <NavigationWrapper>
@@ -26,6 +43,18 @@ export const AppBarComponent: React.FC = () => {
                     </Typography>
                 </Stack>
                 <NavigationBarOptionsContainer>
+                    <Button onClick={handleClearDb}>
+                        Datenbank leeren
+                    </Button>
+                    {isSmall ?
+                        <IconButton variant={"outlined"} onClick={switchMode}>
+                            {mode === "light" ? <NightsStayOutlinedIcon /> : <WbSunnyOutlinedIcon />}
+                        </IconButton>
+                        :
+                        <IconButton variant={"outlined"} onClick={switchMode}>
+                            {mode === "light" ? <NightsStayOutlinedIcon /> : <WbSunnyOutlinedIcon />}
+                        </IconButton>
+                    }
                     <Autocomplete
                         startDecorator={<LanguageIcon />}
                         defaultValue={"Deutsch"}
@@ -40,6 +69,8 @@ export const AppBarComponent: React.FC = () => {
         </NavigationWrapper>
     );
 };
+
+export default AppBarComponent;
 
 const NavigationWrapper = styled(Box)`
     display: grid;
