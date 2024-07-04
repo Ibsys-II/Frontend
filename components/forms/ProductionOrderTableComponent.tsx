@@ -42,14 +42,14 @@ export const ProductionOrderTableComponent: React.FC<PropsSimulationForm> = (pro
     }
 
     const headerCells = [
-        <Typography level={"body-sm"}>Artikel</Typography>,
-        <Typography level={"body-sm"}>Vertriebswunsch</Typography>,
-        <Typography level={"body-sm"}>Warteschlange</Typography>,
-        <Typography level={"body-sm"}>Geplanter Sicherheitsbestand</Typography>,
-        <Typography level={"body-sm"}>Lagerbestand Vorperiode</Typography>,
-        <Typography level={"body-sm"}>Aufträge noch in Warteschlange</Typography>,
-        <Typography level={"body-sm"}>Aufträge in Bearbeitung</Typography>,
-        <Typography level={"body-sm"}>Produktionsauftrag</Typography>,
+        <Typography key={1} level={"body-sm"}>Artikel</Typography>,
+        <Typography key={2} level={"body-sm"}>Vertriebswunsch</Typography>,
+        <Typography key={3} level={"body-sm"}>Warteschlange</Typography>,
+        <Typography key={4} level={"body-sm"}>Geplanter Sicherheitsbestand</Typography>,
+        <Typography key={5} level={"body-sm"}>Lagerbestand Vorperiode</Typography>,
+        <Typography key={6} level={"body-sm"}>Aufträge noch in Warteschlange</Typography>,
+        <Typography key={7} level={"body-sm"}>Aufträge in Bearbeitung</Typography>,
+        <Typography key={8} level={"body-sm"}>Produktionsauftrag</Typography>,
     ];
 
     const handlePlannedSafetyStockChange = async (id: string, event: ChangeEvent<HTMLInputElement>) => {

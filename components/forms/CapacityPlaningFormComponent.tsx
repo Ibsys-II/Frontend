@@ -27,26 +27,16 @@ export const CapacityPlaningFormComponent: React.FC<Props> = (props) => {
     } = useSWR<CapacityPlanSumUp[]>("getAllCapacityPlanSumUp", appContext.getAllCapacityPlanSumUp);
 
     const headerCells = [
-        <Typography level={"body-sm"}>Artikel</Typography>,
-        <Typography level={"body-sm"}>Menge</Typography>,
-        <Typography level={"body-sm"}>1</Typography>,
-        <Typography level={"body-sm"}>2</Typography>,
-        <Typography level={"body-sm"}>3</Typography>,
-        <Typography level={"body-sm"}>4</Typography>,
-        <Typography level={"body-sm"}>6</Typography>,
-        <Typography level={"body-sm"}>7</Typography>,
-        <Typography level={"body-sm"}>8</Typography>,
-        <Typography level={"body-sm"}>9</Typography>,
-        <Typography level={"body-sm"}>10</Typography>,
-        <Typography level={"body-sm"}>11</Typography>,
-        <Typography level={"body-sm"}>12</Typography>,
-        <Typography level={"body-sm"}>13</Typography>,
-        <Typography level={"body-sm"}>14</Typography>,
-        <Typography level={"body-sm"}>15</Typography>,
+        <Typography key={1} level={"body-sm"}>Artikel</Typography>,
+        <Typography key={2} level={"body-sm"}>Menge</Typography>,
+        ...Array.from(Array(14).keys()).map((i) =>
+            <Typography key={i + 2} level={"body-sm"}>{i}</Typography>
+        )
     ];
 
     const sumRows = [
         <Box
+            key={1}
             component={"tr"}
             sx={{
                 "&:hover": {
@@ -76,6 +66,7 @@ export const CapacityPlaningFormComponent: React.FC<Props> = (props) => {
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 15)?.capacityRequirement}</Box>
         </Box>,
         <Box
+            key={2}
             component={"tr"}
             sx={{
                 "&:hover": {
@@ -105,6 +96,7 @@ export const CapacityPlaningFormComponent: React.FC<Props> = (props) => {
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 15)?.setupTime}</Box>
         </Box>,
         <Box
+            key={3}
             component={"tr"}
             sx={{
                 "&:hover": {
@@ -134,6 +126,7 @@ export const CapacityPlaningFormComponent: React.FC<Props> = (props) => {
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 15)?.capacityRequirementBacklogPrevPeriod}</Box>
         </Box>,
         <Box
+            key={4}
             component={"tr"}
             sx={{
                 "&:hover": {
@@ -163,6 +156,7 @@ export const CapacityPlaningFormComponent: React.FC<Props> = (props) => {
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 15)?.setupTimeBacklogPrevPeriod}</Box>
         </Box>,
         <Box
+            key={5}
             component={"tr"}
             sx={{
                 "&:hover": {
@@ -193,6 +187,7 @@ export const CapacityPlaningFormComponent: React.FC<Props> = (props) => {
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 15)?.totalCapacityRequirements}</Box>
         </Box>,
         <Box
+            key={6}
             component={"tr"}
             sx={{
                 "&:hover": {
@@ -222,6 +217,7 @@ export const CapacityPlaningFormComponent: React.FC<Props> = (props) => {
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 15)?.overtimeWeek}</Box>
         </Box>,
         <Box
+            key={7}
             component={"tr"}
             sx={{
                 "&:hover": {
@@ -312,21 +308,10 @@ export const CapacityPlaningFormComponent: React.FC<Props> = (props) => {
                 <CustomTableSimple
                     firstColWidth={"250px"}
                     headerCells={[
-                        <Typography level={"body-sm"}></Typography>,
-                        <Typography level={"body-sm"}>1</Typography>,
-                        <Typography level={"body-sm"}>2</Typography>,
-                        <Typography level={"body-sm"}>3</Typography>,
-                        <Typography level={"body-sm"}>4</Typography>,
-                        <Typography level={"body-sm"}>6</Typography>,
-                        <Typography level={"body-sm"}>7</Typography>,
-                        <Typography level={"body-sm"}>8</Typography>,
-                        <Typography level={"body-sm"}>9</Typography>,
-                        <Typography level={"body-sm"}>10</Typography>,
-                        <Typography level={"body-sm"}>11</Typography>,
-                        <Typography level={"body-sm"}>12</Typography>,
-                        <Typography level={"body-sm"}>13</Typography>,
-                        <Typography level={"body-sm"}>14</Typography>,
-                        <Typography level={"body-sm"}>15</Typography>,
+                        <Typography key={1} level={"body-sm"}></Typography>,
+                        ...Array.from(Array(14).keys()).map((i) =>
+                            <Typography key={i + 1} level={"body-sm"}>{i}</Typography>
+                        )
                     ]}
                     rows={sumRows}
                 />
