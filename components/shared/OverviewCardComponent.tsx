@@ -63,7 +63,7 @@ export const OverviewCardComponent: React.FC = () => {
             <Box
                 component="img"
                 alt="banner-partial-background"
-                src="/banner-partial-background.png"
+                src={`${process.env.NEXT_PUBLIC_BASE_PATH!}/banner-partial-background.png`}
                 sx={{ position: "absolute", height: "100%", top: 0, right: 0 }}
             />
             {isSmall ? null : (
