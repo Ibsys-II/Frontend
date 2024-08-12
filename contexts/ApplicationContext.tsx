@@ -44,6 +44,7 @@ import {getAllProductionOrderApi, ProductionOrder, updateProductionOrderApi} fro
 import {CapacityPlan, getAllCapacityPlanApi} from "@/api/neu/capacityPlan";
 import {CapacityPlanSumUp, getAllCapacityPlanSumUpApi} from "@/api/neu/capacityPlanSumUp";
 import {clearDbApi} from "@/api/neu/dbconfig";
+import {getAllMaterialPlanApi, MaterialPlan, updateMaterialPlanApi} from "@/api/neu/materialPlan";
 
 type ContextOutput = {
     // Period
@@ -92,6 +93,10 @@ type ContextOutput = {
 
     // Capacity plan sum up
     getAllCapacityPlanSumUp: () => Promise<CapacityPlanSumUp[]>;
+
+    // Material plan
+    getAllMaterialPlan: () => Promise<MaterialPlan[]>;
+    updateMaterialPlan: (materialPlan: MaterialPlan) => Promise<void>
 
     // Clear Db
     clearDb: () => Promise<void>;
@@ -240,6 +245,15 @@ export const ApplicationContextProvider: React.FC<Props> = (props: Props) => {
         return await getAllCapacityPlanSumUpApi();
     }
 
+    //  Material plan
+    const getAllMaterialPlan = async (): Promise<MaterialPlan[]> => {
+        return await getAllMaterialPlanApi();
+    }
+
+    const updateMaterialPlan = async (materialPlan: MaterialPlan): Promise<void> => {
+        await updateMaterialPlanApi(materialPlan);
+    }
+
     const clearDb = async (): Promise<void> => {
         await clearDbApi();
     }
@@ -278,6 +292,8 @@ export const ApplicationContextProvider: React.FC<Props> = (props: Props) => {
             updateProductionOrder,
             getAllCapacityPlan,
             getAllCapacityPlanSumUp,
+            getAllMaterialPlan,
+            updateMaterialPlan,
             clearDb,
         }}>
             {children}

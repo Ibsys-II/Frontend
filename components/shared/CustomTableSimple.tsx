@@ -2,19 +2,21 @@ import React, {ReactNode} from 'react';
 import {Box, Table} from "@mui/joy";
 
 type Props = {
-    headerCells: ReactNode[]
-    rows: ReactNode
+    headerCellsMainRow: ReactNode[];
+    headerCellsOtherRows?: ReactNode;
+    rows: ReactNode;
     firstColWidth?: string;
 };
 
 export const CustomTableSimple: React.FC<Props> = (props) => {
-    const { headerCells, rows, firstColWidth } = props;
+    const { headerCellsMainRow, headerCellsOtherRows, rows, firstColWidth } = props;
 
     return (
         <Table variant="plain" borderAxis="both" size="lg">
             <Box component={"thead"}>
+                {headerCellsOtherRows}
                 <Box component={"tr"}>
-                    {headerCells.map((h, index) =>
+                    {headerCellsMainRow.map((h, index) =>
                         <Box
                             key={index}
                             component={"th"}

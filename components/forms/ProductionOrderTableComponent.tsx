@@ -102,7 +102,7 @@ export const ProductionOrderTableComponent: React.FC<PropsSimulationForm> = (pro
                 </Box>
                 <Divider />
                 <CustomTableSimple
-                    headerCells={headerCells}
+                    headerCellsMainRow={headerCells}
                     rows={resolveProductionOrderOfSpecificGood(GOOD_TO_PRODUCE.CHILDREN_BIKE).map((p, index) =>
                         <TableRow
                             key={index}
@@ -122,7 +122,7 @@ export const ProductionOrderTableComponent: React.FC<PropsSimulationForm> = (pro
                 </Box>
                 <Divider />
                 <CustomTableSimple
-                    headerCells={headerCells}
+                    headerCellsMainRow={headerCells}
                     rows={resolveProductionOrderOfSpecificGood(GOOD_TO_PRODUCE.WOMEN_BIKE).map((p, index) =>
                         <TableRow
                             key={index}
@@ -142,7 +142,7 @@ export const ProductionOrderTableComponent: React.FC<PropsSimulationForm> = (pro
                 </Box>
                 <Divider />
                 <CustomTableSimple
-                    headerCells={headerCells}
+                    headerCellsMainRow={headerCells}
                     rows={resolveProductionOrderOfSpecificGood(GOOD_TO_PRODUCE.MEN_BIKE).map((p, index) =>
                         <TableRow
                             key={index}

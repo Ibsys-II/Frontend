@@ -9,12 +9,13 @@ import {ProductionProgrammFormComponent} from "@/components/forms/ProductionProg
 import {ProductionOrderTableComponent} from "@/components/forms/ProductionOrderTableComponent";
 import {SimulationStep} from "@/contexts/ApplicationContext";
 import {CapacityPlaningFormComponent} from "@/components/forms/CapacityPlaningFormComponent";
+import MaterialPlanningFormComponent from "@/components/forms/MaterialPlanningFormComponent";
 
 const SimulationPage: React.FC = () => {
     const simulationSteps: SimulationStep[] = [
         {
-            title: "Vertriebswunsch",
-            description: "Geben Sie den Vertriebswunsch bei allen Produkten ein",
+            title: "Produktionsprogramm",
+            description: "Geben Sie das Produktionsprogramm bei allen Produkten ein",
             component: () => <ProductionProgrammFormComponent onSubmit={simulationSteps[0].onNext} />,
             onNext: () => setActiveStep(simulationSteps[1]),
         },
@@ -33,32 +34,32 @@ const SimulationPage: React.FC = () => {
             onPrevious: () => setActiveStep(simulationSteps[1]),
         },
         {
-            title: "Teileverwendungsnachweis",
-            description: "Geben Sie den Teileverwendungsnachweis ein",
-            component: () => <div>Teileverwendungsnachweis</div>,
-            onNext: () => setActiveStep(simulationSteps[4]),
+            title: "Materialplanung",
+            description: "Materialplanung für eingekaufte Produkte",
+            component: () => <MaterialPlanningFormComponent onSubmit={() => {}} />,
+            //onNext: () => setActiveStep(simulationSteps[4]),
             onPrevious: () => setActiveStep(simulationSteps[2]),
         },
-        {
-            title: "Losgrößensplitting",
-            description: "Splitting",
-            component: () => <div>Losgrößensplitting</div>,
-            onNext: () => setActiveStep(simulationSteps[5]),
-            onPrevious: () => setActiveStep(simulationSteps[3]),
-        },
-        {
-            title: "Reihenfolgeplanung",
-            description: "Bestimmen Sie in welcher Reihenfolge Ihre Aufträge abgearbeitet werden sollen",
-            component: () => <div>Reihenfolgeplanung</div>,
-            onNext: () => setActiveStep(simulationSteps[6]),
-            onPrevious: () => setActiveStep(simulationSteps[4]),
-        },
-        {
-            title: "Ergebnis",
-            description: "Ergebnisse (Wichtige Kennzahlen)",
-            component: () => <div>Ergebnis</div>,
-            onPrevious: () => setActiveStep(simulationSteps[5]),
-        },
+        // {
+        //     title: "Losgrößensplitting",
+        //     description: "Splitting",
+        //     component: () => <div>Losgrößensplitting</div>,
+        //     onNext: () => setActiveStep(simulationSteps[5]),
+        //     onPrevious: () => setActiveStep(simulationSteps[3]),
+        // },
+        // {
+        //     title: "Reihenfolgeplanung",
+        //     description: "Bestimmen Sie in welcher Reihenfolge Ihre Aufträge abgearbeitet werden sollen",
+        //     component: () => <div>Reihenfolgeplanung</div>,
+        //     onNext: () => setActiveStep(simulationSteps[6]),
+        //     onPrevious: () => setActiveStep(simulationSteps[4]),
+        // },
+        // {
+        //     title: "Ergebnis",
+        //     description: "Ergebnisse (Wichtige Kennzahlen)",
+        //     component: () => <div>Ergebnis</div>,
+        //     onPrevious: () => setActiveStep(simulationSteps[5]),
+        // },
     ];
 
     const [activeStep, setActiveStep] = useState<SimulationStep | undefined>(simulationSteps[0]);

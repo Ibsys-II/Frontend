@@ -73,6 +73,7 @@ const useDataImport = () => {
                     "Content-Type": "application/json"
                 }
             }
+            console.log("outputJsonData: ", outputJsonData);
             await axiosClient.post(importDataUrl, outputJsonData, requestOptions);
             const computedOutput = {
                 ...outputJsonData,

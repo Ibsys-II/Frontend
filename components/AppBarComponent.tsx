@@ -43,9 +43,9 @@ const AppBarComponent: React.FC = () => {
                     </Typography>
                 </Stack>
                 <NavigationBarOptionsContainer>
-                    <Button onClick={handleClearDb}>
-                        Datenbank leeren
-                    </Button>
+                    {/*<Button onClick={handleClearDb}>*/}
+                    {/*    Datenbank leeren*/}
+                    {/*</Button>*/}
                     {isSmall ?
                         <IconButton variant={"outlined"} onClick={switchMode}>
                             {mode === "light" ? <NightsStayOutlinedIcon /> : <WbSunnyOutlinedIcon />}
@@ -55,14 +55,14 @@ const AppBarComponent: React.FC = () => {
                             {mode === "light" ? <NightsStayOutlinedIcon /> : <WbSunnyOutlinedIcon />}
                         </IconButton>
                     }
-                    <Autocomplete
-                        startDecorator={<LanguageIcon />}
-                        defaultValue={"Deutsch"}
-                        options={["Deutsch", "English", "Français"]}
-                        sx={{
-                            maxWidth: "200px"
-                        }}
-                    />
+                    {/*<Autocomplete*/}
+                    {/*    startDecorator={<LanguageIcon />}*/}
+                    {/*    defaultValue={"Deutsch"}*/}
+                    {/*    options={["Deutsch", "English", "Français"]}*/}
+                    {/*    sx={{*/}
+                    {/*        maxWidth: "200px"*/}
+                    {/*    }}*/}
+                    {/*/>*/}
                 </NavigationBarOptionsContainer>
             </NavigationBarContainer>
             <Divider orientation={"horizontal"} />

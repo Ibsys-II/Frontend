@@ -29,9 +29,9 @@ export const CapacityPlaningFormComponent: React.FC<Props> = (props) => {
     const headerCells = [
         <Typography key={1} level={"body-sm"}>Artikel</Typography>,
         <Typography key={2} level={"body-sm"}>Menge</Typography>,
-        ...Array.from(Array(14).keys()).map((i) =>
-            <Typography key={i + 2} level={"body-sm"}>{i}</Typography>
-        )
+        ...Array.from(Array(15).keys()).map((i) =>
+            <Typography key={i + 3} level={"body-sm"}>{i + 1}</Typography>
+        ),
     ];
 
     const sumRows = [
@@ -54,6 +54,7 @@ export const CapacityPlaningFormComponent: React.FC<Props> = (props) => {
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 2)?.capacityRequirement}</Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 3)?.capacityRequirement}</Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 4)?.capacityRequirement}</Box>
+            <Box component={"td"}> - </Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 6)?.capacityRequirement}</Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 7)?.capacityRequirement}</Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 8)?.capacityRequirement}</Box>
@@ -84,6 +85,7 @@ export const CapacityPlaningFormComponent: React.FC<Props> = (props) => {
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 2)?.setupTime}</Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 3)?.setupTime}</Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 4)?.setupTime}</Box>
+            <Box component={"td"}> - </Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 6)?.setupTime}</Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 7)?.setupTime}</Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 8)?.setupTime}</Box>
@@ -114,6 +116,7 @@ export const CapacityPlaningFormComponent: React.FC<Props> = (props) => {
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 2)?.capacityRequirementBacklogPrevPeriod}</Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 3)?.capacityRequirementBacklogPrevPeriod}</Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 4)?.capacityRequirementBacklogPrevPeriod}</Box>
+            <Box component={"td"}> - </Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 6)?.capacityRequirementBacklogPrevPeriod}</Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 7)?.capacityRequirementBacklogPrevPeriod}</Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 8)?.capacityRequirementBacklogPrevPeriod}</Box>
@@ -144,6 +147,7 @@ export const CapacityPlaningFormComponent: React.FC<Props> = (props) => {
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 2)?.setupTimeBacklogPrevPeriod}</Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 3)?.setupTimeBacklogPrevPeriod}</Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 4)?.setupTimeBacklogPrevPeriod}</Box>
+            <Box component={"td"}> - </Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 6)?.setupTimeBacklogPrevPeriod}</Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 7)?.setupTimeBacklogPrevPeriod}</Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 8)?.setupTimeBacklogPrevPeriod}</Box>
@@ -175,6 +179,7 @@ export const CapacityPlaningFormComponent: React.FC<Props> = (props) => {
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 2)?.totalCapacityRequirements}</Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 3)?.totalCapacityRequirements}</Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 4)?.totalCapacityRequirements}</Box>
+            <Box component={"td"}> - </Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 6)?.totalCapacityRequirements}</Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 7)?.totalCapacityRequirements}</Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 8)?.totalCapacityRequirements}</Box>
@@ -199,12 +204,44 @@ export const CapacityPlaningFormComponent: React.FC<Props> = (props) => {
             }}
         >
             <Box component={"td"} fontWeight={600}>
+                <Typography level={"body-sm"} fontWeight={600}>Schichten</Typography>
+            </Box>
+            <Box component={"td"}>{((capacityPlanSumUpList?.find(c => c.workPlaceNumber === 1)?.totalCapacityRequirements ?? 1) / 2400).toFixed(2)}</Box>
+            <Box component={"td"}>{((capacityPlanSumUpList?.find(c => c.workPlaceNumber === 2)?.totalCapacityRequirements ?? 1) / 2400).toFixed(2)}</Box>
+            <Box component={"td"}>{((capacityPlanSumUpList?.find(c => c.workPlaceNumber === 3)?.totalCapacityRequirements ?? 1) / 2400).toFixed(2)}</Box>
+            <Box component={"td"}>{((capacityPlanSumUpList?.find(c => c.workPlaceNumber === 4)?.totalCapacityRequirements ?? 1) / 2400).toFixed(2)}</Box>
+            <Box component={"td"}> - </Box>
+            <Box component={"td"}>{((capacityPlanSumUpList?.find(c => c.workPlaceNumber === 6)?.totalCapacityRequirements ?? 1) / 2400).toFixed(2)}</Box>
+            <Box component={"td"}>{((capacityPlanSumUpList?.find(c => c.workPlaceNumber === 7)?.totalCapacityRequirements ?? 1) / 2400).toFixed(2)}</Box>
+            <Box component={"td"}>{((capacityPlanSumUpList?.find(c => c.workPlaceNumber === 8)?.totalCapacityRequirements ?? 1) / 2400).toFixed(2)}</Box>
+            <Box component={"td"}>{((capacityPlanSumUpList?.find(c => c.workPlaceNumber === 9)?.totalCapacityRequirements ?? 1) / 2400).toFixed(2)}</Box>
+            <Box component={"td"}>{((capacityPlanSumUpList?.find(c => c.workPlaceNumber === 10)?.totalCapacityRequirements ?? 1) / 2400).toFixed(2)}</Box>
+            <Box component={"td"}>{((capacityPlanSumUpList?.find(c => c.workPlaceNumber === 11)?.totalCapacityRequirements ?? 1) / 2400).toFixed(2)}</Box>
+            <Box component={"td"}>{((capacityPlanSumUpList?.find(c => c.workPlaceNumber === 12)?.totalCapacityRequirements ?? 1) / 2400).toFixed(2)}</Box>
+            <Box component={"td"}>{((capacityPlanSumUpList?.find(c => c.workPlaceNumber === 13)?.totalCapacityRequirements ?? 1) / 2400).toFixed(2)}</Box>
+            <Box component={"td"}>{((capacityPlanSumUpList?.find(c => c.workPlaceNumber === 14)?.totalCapacityRequirements ?? 1) / 2400).toFixed(2)}</Box>
+            <Box component={"td"}>{((capacityPlanSumUpList?.find(c => c.workPlaceNumber === 15)?.totalCapacityRequirements ?? 1) / 2400).toFixed(2)}</Box>
+        </Box>,
+        <Box
+            key={6}
+            component={"tr"}
+            sx={{
+                "&:hover": {
+                    backgroundColor: theme.vars.palette.primary["500"],
+                    "& *": {
+                        color: "white"
+                    }
+                }
+            }}
+        >
+            <Box component={"td"} fontWeight={600}>
                 <Typography level={"body-sm"} fontWeight={600}>Überstunden (In Wochen)</Typography>
             </Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 1)?.overtimeWeek}</Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 2)?.overtimeWeek}</Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 3)?.overtimeWeek}</Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 4)?.overtimeWeek}</Box>
+            <Box component={"td"}> - </Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 6)?.overtimeWeek}</Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 7)?.overtimeWeek}</Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 8)?.overtimeWeek}</Box>
@@ -235,6 +272,7 @@ export const CapacityPlaningFormComponent: React.FC<Props> = (props) => {
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 2)?.overtimeDay}</Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 3)?.overtimeDay}</Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 4)?.overtimeDay}</Box>
+            <Box component={"td"}> - </Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 6)?.overtimeDay}</Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 7)?.overtimeDay}</Box>
             <Box component={"td"}>{capacityPlanSumUpList?.find(c => c.workPlaceNumber === 8)?.overtimeDay}</Box>
@@ -265,7 +303,16 @@ export const CapacityPlaningFormComponent: React.FC<Props> = (props) => {
             <FormGroupContainer>
                 <CustomTableSimple
                     firstColWidth={"170px"}
-                    headerCells={headerCells}
+                    headerCellsOtherRows={
+                        <Box component={"tr"}>
+                            <Box component={"th"}></Box>
+                            <Box component={"th"}></Box>
+                            <Box component={"th"} fontWeight={600} colSpan={15}>
+                                <Typography textAlign={"center"}>Arbeitplatz</Typography>
+                            </Box>
+                        </Box>
+                    }
+                    headerCellsMainRow={headerCells}
                     rows={sortCapacityPlanList(capacityPlanList).map((c, index) => (
                         <Box
                             key={index}
@@ -286,6 +333,7 @@ export const CapacityPlaningFormComponent: React.FC<Props> = (props) => {
                             <Box component={"td"}>{c.workplace2}</Box>
                             <Box component={"td"}>{c.workplace3}</Box>
                             <Box component={"td"}>{c.workplace4}</Box>
+                            <Box component={"td"}> - </Box>
                             <Box component={"td"}>{c.workplace6}</Box>
                             <Box component={"td"}>{c.workplace7}</Box>
                             <Box component={"td"}>{c.workplace8}</Box>
@@ -307,10 +355,10 @@ export const CapacityPlaningFormComponent: React.FC<Props> = (props) => {
                 <Divider />
                 <CustomTableSimple
                     firstColWidth={"250px"}
-                    headerCells={[
+                    headerCellsMainRow={[
                         <Typography key={1} level={"body-sm"}></Typography>,
-                        ...Array.from(Array(14).keys()).map((i) =>
-                            <Typography key={i + 1} level={"body-sm"}>{i}</Typography>
+                        ...Array.from(Array(15).keys()).map((i) =>
+                            <Typography key={i + 1} level={"body-sm"}>{i + 1}</Typography>
                         )
                     ]}
                     rows={sumRows}

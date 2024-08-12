@@ -15,6 +15,7 @@ import {usePathname, useRouter} from "next/navigation";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
 import {v4 as uuid} from "uuid";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 
 const INITIAL_SIDEBAR_STATE = true;
 
@@ -67,6 +68,12 @@ const SidebarComponent: React.FC = () => {
             icon: <PlayCircleFilledWhiteOutlinedIcon />,
             isActive: pathname.includes("/simulation"),
             onClick: () => router.push("/simulation"),
+        },
+        {
+            label: "Datenexport",
+            icon: <FileDownloadOutlinedIcon />,
+            isActive: pathname.includes("/export"),
+            onClick: () => router.push("/export"),
         },
     ];
 
